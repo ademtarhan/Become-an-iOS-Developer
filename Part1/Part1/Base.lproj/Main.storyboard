@@ -63,7 +63,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="buttonPlus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TlV-8W-Ner"/>
+                                    <action selector="buttonAddition:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Swt-xS-BT1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOL-Fb-4LQ">
@@ -78,7 +78,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="buttonMinus:" destination="BYZ-38-t0r" eventType="touchUpInside" id="scF-T6-DQh"/>
+                                    <action selector="buttonSubtraction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EML-77-eD7"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ny4-Ju-9jz">
@@ -93,7 +93,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="buttonDivide:" destination="BYZ-38-t0r" eventType="touchUpInside" id="538-6s-kVL"/>
+                                    <action selector="buttonDivision:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Mn1-0I-SQr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CjH-81-ZNv">
@@ -108,7 +108,7 @@
                                     <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="buttonMultiply:" destination="BYZ-38-t0r" eventType="touchUpInside" id="igY-M5-Qx2"/>
+                                    <action selector="buttonMultiplication:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yd8-Y8-eBJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calculator" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L98-uo-Zuh">
@@ -152,7 +152,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="buttonPlus" destination="J9y-Z1-95X" id="8yg-HM-h98"/>
                         <outlet property="labelResult" destination="3dG-lV-HRf" id="nEJ-Bv-45I"/>
                         <outlet property="textFirstNumber" destination="8u0-M3-bJe" id="cKs-O3-khq"/>
                         <outlet property="textSecondNumber" destination="zP7-3U-Rib" id="5Ql-Ri-cxb"/>

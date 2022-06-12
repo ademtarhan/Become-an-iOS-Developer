@@ -17,26 +17,44 @@ class ViewController: UIViewController {
     
     var buttons : [UIButton]!
     
-   
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
     }
 
     
-    @IBAction func buttonPlus(_ sender: Any) {
-    }
-    @IBAction func buttonMinus(_ sender: Any) {
+    @IBAction func buttonAddition(_ sender: Any) {
         
+        let result = converter(text: textFirstNumber.text!) + converter(text: textSecondNumber.text!)
+        
+        labelResult.text = String(result)
     }
     
-    @IBAction func buttonDivide(_ sender: Any) {
+    @IBAction func buttonSubtraction(_ sender: Any) {
+        let result = converter(text: textFirstNumber.text!) - converter(text: textSecondNumber.text!)
+        labelResult.text = String(result)
     }
     
-    @IBAction func buttonMultiply(_ sender: Any) {
+    @IBAction func buttonDivision(_ sender: Any) {
+        let result = converter(text: textFirstNumber.text!) / converter(text: textSecondNumber.text!)
+        labelResult.text = String(result)
     }
+    
+    @IBAction func buttonMultiplication(_ sender: Any) {
+        let result = converter(text: textFirstNumber.text!) * converter(text: textSecondNumber.text!)
+        labelResult.text = String(result)
+    }
+    
+    
+    func converter(text:String) -> Int{
+        
+        let number = Int(text) ?? 0
+        print(number)
+        return number
+    }
+    
     
 }
 
