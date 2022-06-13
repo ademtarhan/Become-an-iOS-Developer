@@ -44,23 +44,53 @@
                                 </constraints>
                                 <color key="onTintColor" red="0.47922585227272729" green="0.47922585227272729" blue="0.47922585227272729" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </switch>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5q8-kK-Dpl">
+                                <rect key="frame" x="107" y="434" width="200" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="AFP-Qn-2Fk"/>
+                                    <constraint firstAttribute="width" constant="200" id="Dpf-el-NMe"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Change Switch">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle2"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="buttonSwitch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="bXd-oI-Uaj"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2b-Oc-euh">
+                                <rect key="frame" x="157" y="504" width="100" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="d1k-lx-7eJ"/>
+                                    <constraint firstAttribute="width" constant="100" id="hkt-IR-7wU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Rockwell-Regular" family="Rockwell" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wXg-ez-xDg" secondAttribute="trailing" constant="50" id="1eT-Io-aZq"/>
+                            <constraint firstItem="C2b-Oc-euh" firstAttribute="top" secondItem="5q8-kK-Dpl" secondAttribute="bottom" constant="30" id="1rg-AP-zZ0"/>
                             <constraint firstItem="wXg-ez-xDg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="3Jg-Ra-fKI"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Ega-ef-MSt" secondAttribute="trailing" constant="20" id="7yP-GF-4gb"/>
                             <constraint firstItem="Ten-qW-gcS" firstAttribute="top" secondItem="wXg-ez-xDg" secondAttribute="bottom" constant="20" id="CL3-oQ-o4O"/>
                             <constraint firstItem="Ega-ef-MSt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="D3U-Gc-l2y"/>
+                            <constraint firstItem="5q8-kK-Dpl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EB9-Je-U0M"/>
+                            <constraint firstItem="C2b-Oc-euh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KfU-wi-EBA"/>
                             <constraint firstItem="Ten-qW-gcS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XCQ-HZ-6Nu"/>
+                            <constraint firstItem="5q8-kK-Dpl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bWc-MS-r0D"/>
                             <constraint firstItem="Ega-ef-MSt" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="fNx-g9-0gg"/>
                             <constraint firstItem="wXg-ez-xDg" firstAttribute="top" secondItem="Ega-ef-MSt" secondAttribute="bottom" constant="30" id="fmd-DY-QiQ"/>
+                            <constraint firstItem="5q8-kK-Dpl" firstAttribute="top" secondItem="Ten-qW-gcS" secondAttribute="bottom" constant="30" id="o0H-0n-u0V"/>
                             <constraint firstItem="Ega-ef-MSt" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="o5I-Lo-fcd"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="imageMode" destination="wXg-ez-xDg" id="wi1-ua-Zek"/>
+                        <outlet property="labelMode" destination="C2b-Oc-euh" id="n7V-CB-mpv"/>
                         <outlet property="labelTitle" destination="Ega-ef-MSt" id="r49-qV-fUT"/>
                         <outlet property="switchMode" destination="Ten-qW-gcS" id="oUb-Ac-uFT"/>
                     </connections>

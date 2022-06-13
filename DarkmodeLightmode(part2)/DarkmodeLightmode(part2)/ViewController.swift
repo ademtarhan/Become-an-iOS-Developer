@@ -17,11 +17,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var switchMode: UISwitch!
     
     
+    @IBOutlet weak var labelMode: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        print("---\(switchMode)")
     }
 
+    
+    @IBAction func buttonSwitch(_ sender: Any) {
+    }
+    
+    
 
 }
 
