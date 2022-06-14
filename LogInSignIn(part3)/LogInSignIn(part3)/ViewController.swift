@@ -9,41 +9,48 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet var imageBackground: UIImageView!
-    @IBOutlet weak var segmentControlLogSign: UISegmentedControl!
-    @IBOutlet weak var textfieldUsername: UITextField!
-    @IBOutlet weak var textfieldEmail: UITextField!
-    @IBOutlet weak var textfieldPassword: UITextField!
-    
-    @IBOutlet weak var buttonReqisterLogin: UIButton!
-    private enum PageType {
-        case reqister
-        case login
-    }
-    private var currentPageType : PageType = .login {
-        didSet{
-            print("\(currentPageType)")
-        }
-    }
-    
-    
+    @IBOutlet var segmentControlLogSign: UISegmentedControl!
+
+    @IBOutlet var buttonReqister: UIButton!
+
+    @IBOutlet var buttonLogin: UIButton!
+    @IBOutlet var textfieldPassword: UITextField!
+
+    @IBOutlet var stackReqister: UIStackView!
+    @IBOutlet var stackLog: UIStackView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        blur(image: imageBackground)
+        imageBackground.blur(image: imageBackground)
+        segmentControl()
     }
-    
-    private func setupViews(pagetype: PageType){
-        textfieldPassword.isHidden = pagetype == .login
-       
-        
-    }
-    
-    
-    @IBAction func segmentControlChanged(_ sender: UISegmentedControl){
-        currentPageType = sender.selectedSegmentIndex == 0 ? .login : .reqister
-    }
-    
 
-   
+    //MARK: logn reqister screens control
+    @IBAction func segmentControl() {
+        if segmentControlLogSign.selectedSegmentIndex == 0 {
+            buttonLogin.isHidden = true
+            buttonReqister.isHidden = false
+            stackReqister.isHidden = false
+            stackLog.isHidden = true
+
+        } else {
+            textfieldPassword.isSecureTextEntry = true
+            buttonLogin.isHidden = false
+            buttonReqister.isHidden = true
+            stackLog.isHidden = false
+            stackReqister.isHidden = true
+        }
+    }
+
+    //MARK: Show Password
+    @IBAction func buttonShowpassword(_ sender: Int) {
+        textfieldPassword.isSecureTextEntry = false
+    }
+}
+
+
+//MARK: Extension - Blur effect for background image
+extension UIImageView {
     func blur(image: UIImageView) {
         let inputImage = CIImage(cgImage: (image.image?.cgImage)!)
 
@@ -54,4 +61,3 @@ class ViewController: UIViewController {
         image.image = UIImage(ciImage: blurred!)
     }
 }
-
