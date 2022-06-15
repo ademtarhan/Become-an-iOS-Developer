@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="EggTimer__Part4_" customModuleProvider="target">
+            <connections>
+                <outlet property="buttonEgg1" destination="vhw-lA-bvp" id="Jp4-mR-tS6"/>
+                <outlet property="buttonEgg2" destination="z54-Q5-BYc" id="t9g-qs-60d"/>
+                <outlet property="buttonEgg3" destination="nqb-g2-Rdh" id="plX-RU-f1R"/>
+                <outlet property="buttonEgg4" destination="385-Gv-gbo" id="fcT-50-WyA"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do you like your egg?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PPq-2o-2kU">
+                    <rect key="frame" x="20" y="100" width="374" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="hrG-H9-IQD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhw-lA-bvp">
+                    <rect key="frame" x="60" y="190" width="132" height="129"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="129" id="QtM-Ye-7Rs"/>
+                        <constraint firstAttribute="width" constant="132" id="f9C-MK-Jm0"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="egg-1"/>
+                    <connections>
+                        <action selector="buttonShowTimer:" destination="-1" eventType="touchUpInside" id="GWO-M7-9CE"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z54-Q5-BYc">
+                    <rect key="frame" x="222" y="190" width="132" height="129"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="129" id="8Pg-Y0-Ndg"/>
+                        <constraint firstAttribute="width" constant="132" id="L1r-qc-ggG"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="129" id="Nhf-uE-3ZK"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="rEJ-mJ-y0P"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="egg-2"/>
+                    <connections>
+                        <action selector="buttonShowTimer:" destination="-1" eventType="touchUpInside" id="MYO-2o-S8y"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nqb-g2-Rdh">
+                    <rect key="frame" x="60" y="349" width="132" height="129"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="3io-ab-2b9"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="129" id="Cn1-hA-wLy"/>
+                        <constraint firstAttribute="height" constant="129" id="Jl4-aY-Vtr"/>
+                        <constraint firstAttribute="width" constant="132" id="Jxd-5f-0Uj"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="egg-3"/>
+                    <connections>
+                        <action selector="buttonShowTimer:" destination="-1" eventType="touchUpInside" id="Ncx-5g-UKx"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="385-Gv-gbo">
+                    <rect key="frame" x="222" y="349" width="132" height="129"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="129" id="FW6-In-nx2"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="ONX-aJ-rp3"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="132" id="SRp-as-sql"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="129" id="gJc-Kt-5YU"/>
+                        <constraint firstAttribute="width" constant="132" id="ojC-Yo-450"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="129" id="zLV-ac-Jya"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="egg-4"/>
+                    <connections>
+                        <action selector="buttonShowTimer:" destination="-1" eventType="touchUpInside" id="tAc-R3-hue"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="z54-Q5-BYc" firstAttribute="top" secondItem="PPq-2o-2kU" secondAttribute="bottom" constant="50" id="1ZV-Dw-caj"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="z54-Q5-BYc" secondAttribute="trailing" constant="60" id="1tg-Jm-gW2"/>
+                <constraint firstItem="nqb-g2-Rdh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="60" id="Dpx-Kp-Z6F"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PPq-2o-2kU" secondAttribute="trailing" constant="20" id="N56-m6-AWc"/>
+                <constraint firstItem="PPq-2o-2kU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Oew-fs-uJE"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="385-Gv-gbo" secondAttribute="trailing" constant="60" id="VQp-83-UI0"/>
+                <constraint firstItem="vhw-lA-bvp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="60" id="aqV-0q-Ke7"/>
+                <constraint firstItem="385-Gv-gbo" firstAttribute="top" secondItem="z54-Q5-BYc" secondAttribute="bottom" constant="30" id="h5I-6n-Cxd"/>
+                <constraint firstItem="vhw-lA-bvp" firstAttribute="top" secondItem="PPq-2o-2kU" secondAttribute="bottom" constant="50" id="jpf-6A-HIL"/>
+                <constraint firstItem="nqb-g2-Rdh" firstAttribute="top" secondItem="vhw-lA-bvp" secondAttribute="bottom" constant="30" id="ke2-ls-Z3I"/>
+                <constraint firstItem="PPq-2o-2kU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="syt-0I-KKC"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="99.776785714285708"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="egg-1" width="128" height="128"/>
+        <image name="egg-2" width="128" height="128"/>
+        <image name="egg-3" width="128" height="128"/>
+        <image name="egg-4" width="128" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
