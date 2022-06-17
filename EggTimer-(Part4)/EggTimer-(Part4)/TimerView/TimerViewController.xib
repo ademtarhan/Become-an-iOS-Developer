@@ -12,6 +12,8 @@
             <connections>
                 <outlet property="imageEgg" destination="Smp-Pr-SAy" id="JWi-nu-846"/>
                 <outlet property="labelEggType" destination="r57-eh-lOC" id="az8-7e-POE"/>
+                <outlet property="labelTime" destination="BJL-iF-nZd" id="Cro-Xi-KJq"/>
+                <outlet property="sliderTime" destination="L8I-KB-WWd" id="MD6-4b-XwR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -50,7 +52,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-KB-WWd">
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="59" minValue="0.0" maxValue="59" translatesAutoresizingMaskIntoConstraints="NO" id="L8I-KB-WWd">
                     <rect key="frame" x="18" y="559" width="378" height="31"/>
                     <color key="tintColor" systemColor="systemYellowColor"/>
                     <constraints>
@@ -76,6 +78,9 @@
                                     <integer key="value" value="30"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="buttonStop:" destination="-1" eventType="touchUpInside" id="9IT-Mw-iNI"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bGw-Dc-bcG">
                             <rect key="frame" x="77" y="0.0" width="60" height="60"/>
@@ -95,6 +100,9 @@
                                     <integer key="value" value="30"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="buttonPause:" destination="-1" eventType="touchUpInside" id="q09-cz-vgb"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Ox-pf-Yra">
                             <rect key="frame" x="154" y="0.0" width="60" height="60"/>
@@ -116,6 +124,9 @@
                                     <integer key="value" value="30"/>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="buttonPlay:" destination="-1" eventType="touchUpInside" id="zox-3g-QDJ"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

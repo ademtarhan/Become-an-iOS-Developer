@@ -7,27 +7,71 @@
 
 import UIKit
 
-class TimerViewController: UIViewController {
+protocol TimerImplementable : AnyObject{
+    var value : HomeImplementable? {get set}
+}
 
-    @IBOutlet weak var labelEggType: UILabel!
+class TimerViewController: UIViewController , TimerImplementable {
+    var second : Int = 0
+    var minute : Int = 0
+    var timer = Timer()
+    var value: HomeImplementable?
     
-    @IBOutlet weak var imageEgg: UIImageView!
     
     
-    
+    //..MARK: Outlet
+    @IBOutlet var labelEggType: UILabel!
+
+    @IBOutlet var imageEgg: UIImageView!
+
+    @IBOutlet var labelTime: UILabel!
+
+    @IBOutlet var sliderTime: UISlider!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
-        print(Egg.eggType(type: Egg.EggType.easy)[0])
-        // Do any additional setup after loading the view.
+        
+        print(value?.val)
+        
     }
 
-    
     func setData() {
-        labelEggType.text = Egg.eggType(type: Egg.EggType.hard)[0]
-        imageEgg.image = UIImage(named: Egg.eggType(type: Egg.EggType.hard)[1])
+        //var minute = Int(Egg.eggType(type: .medium)[2])
+        //var second = Int(Egg.eggType(type: .medium)[2])
+        labelEggType.text = Egg.eggType(type: .medium)[0]
+        imageEgg.image = UIImage(named:  Egg.eggType(type: .medium)[1])
+        labelTime.text = Egg.eggType(type: .medium)[2]
     }
-    
-    
 
+    @objc func setTime() {
+        second -= 1
+        labelTime.text = "\(minute):\(second)"
+        sliderTime.value = Float(second)
+        if second == 0 {
+            minute -= 1
+            second = 59
+        }
+        
+    }
+
+    // ..MARK: Action
+
+    @IBAction func buttonPlay(_ sender: Any) {
+        print("55")
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.setTime), userInfo: nil, repeats: true)
+    }
+
+    @IBAction func buttonPause(_ sender: Any) {
+        timer.invalidate()
+    }
+
+    @IBAction func buttonStop(_ sender: Any) {
+        timer.invalidate()
+        second = 59
+        minute = 4
+        labelTime.text = "\(minute):\(second)"
+        sliderTime.value = Float(second)
+        
+    }
 }
