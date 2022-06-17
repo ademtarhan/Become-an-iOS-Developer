@@ -23,8 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     private func initWindow() {
         
-        let navigation = UINavigationController(nibName: "HomeViewController", bundle: nil)
-        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
@@ -33,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func initRoot() {
         let home = ViewControllerFactory.shared.home
         
-        let root = UINavigationController(rootViewController: home as! UIViewController)
+        let root = UINavigationController(rootViewController: home )
         rootViewController = root
     }
 
