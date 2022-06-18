@@ -37,7 +37,7 @@ class Egg {
     static func eggType(type: EggType) -> [String]{
         switch type {
         case .easy:
-            return ["Easy","egg-1","12"]
+            return ["Easy","egg-1","6"]
         case .medium:
             return ["Medium","egg-2","70"]
         case .hard:

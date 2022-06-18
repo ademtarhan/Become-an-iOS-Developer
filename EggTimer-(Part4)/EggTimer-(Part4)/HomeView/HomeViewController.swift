@@ -15,33 +15,19 @@ class HomeViewController: UIViewController, HomeImplementable {
     var val: [String]?
     
     // ..MARK: Outlet
-
     @IBOutlet var buttonEgg1: UIButton!
-
     @IBOutlet var buttonEgg2: UIButton!
-
     @IBOutlet var buttonEgg3: UIButton!
-
     @IBOutlet var buttonEgg4: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         title = "Egg Timer"
-        print("---")
-
-        // Do any additional setup after loading the view.
     }
 
     // ..MARK: Action
     @IBAction func buttonShowTimer(_ sender: UIButton) {
-        let destination = TimerViewController()
-        
-        
-        
-
-        
-        
+        let destination = TimerViewController() //..MARK: navigation
         switch sender {
         case buttonEgg1:
             destination.value = Egg.eggType(type: .easy)

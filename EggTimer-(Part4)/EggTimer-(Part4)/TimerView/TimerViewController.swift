@@ -13,13 +13,10 @@ protocol TimerImplementable: AnyObject {
 
 class TimerViewController: UIViewController, TimerImplementable {
     var value: [String]?
-    
-    
-    var second : Int = 0
-    
+    var second: Int = 0
     var minute: Int = 0
-    
     var timer = Timer()
+    
 
     // ..MARK: Outlet
     @IBOutlet var labelEggType: UILabel!
@@ -33,65 +30,79 @@ class TimerViewController: UIViewController, TimerImplementable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
-
     }
-
+    //..MARK: setup data function
     func setData() {
+        
         second = setSecond()
+        sliderTime.maximumValue = Float(second)
         minute = Int((value?[2])!)! / 60
         labelEggType.text = value?[0]
         imageEgg.image = UIImage(named: value?[1] ?? "egg-1")
         labelTime.text = "\(minute):\(second)"
     }
-
+    
+    
+    //..MARK: setup time function
     @objc func setTime() {
         second -= 1
         labelTime.text = "\(minute):\(second)"
-        sliderTime.maximumValue = Float(minute*60+second)
-        sliderTime.value = Float(1)
+        
+        sliderTime.value = Float(second)
         print(sliderTime.value)
-        print(sliderTime.maximumValue)
         if second == 0 && minute != 0 {
             minute -= 1
             second = 59
         }
-        if minute == 0 && second == 0{
+        if minute == 0 && second == 0 {
             timer.invalidate()
             showAlert()
         }
     }
 
     // ..MARK: Action
-
+    
+    //..MARK: play  function
     @IBAction func buttonPlay(_ sender: Any) {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setTime), userInfo: nil, repeats: true)
     }
-
+    //..MARK: pause  function
     @IBAction func buttonPause(_ sender: Any) {
         timer.invalidate()
     }
-
-    @IBAction func buttonStop(_ sender: Any){
+    //..MARK: stop  function
+    @IBAction func buttonStop(_ sender: Any) {
         timer.invalidate()
         second = setSecond()
         minute = Int((value?[2])!)! / 60
         labelTime.text = "\(minute):\(second)"
         sliderTime.value = Float(second)
     }
-    
-    func setSecond() -> Int{
+    //..MARK: setup second function
+    func setSecond() -> Int {
         if Int((value?[2])!)! % 60 == 0 {
             return 59
-        }else{
+        } else {
             return Int((value?[2])!)! % 60
         }
     }
 }
 
 extension UIViewController {
+    //..MARK: for alert
     func showAlert() {
         let alert = UIAlertController(title: "Finished", message: "Eggs is cooked", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert,animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+            alert.dismiss(animated: true, completion: nil)
+            self.navToHome()
+        }))
+        present(alert, animated: true, completion: nil)
+        
+    }
+    //..MARK: for back homeview
+    func navToHome(){
+        navigationController?.popViewController(animated: true)
     }
 }
+
+
