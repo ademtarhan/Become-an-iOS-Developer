@@ -16,6 +16,9 @@
 		9A513441285755F000D38456 /* LogInSignIn_part3_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A513440285755F000D38456 /* LogInSignIn_part3_Tests.swift */; };
 		9A51344B285755F000D38456 /* LogInSignIn_part3_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A51344A285755F000D38456 /* LogInSignIn_part3_UITests.swift */; };
 		9A51344D285755F000D38456 /* LogInSignIn_part3_UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A51344C285755F000D38456 /* LogInSignIn_part3_UITestsLaunchTests.swift */; };
+		9A6911A0285DECEB007FC9DC /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A69119E285DECEB007FC9DC /* TabbarViewController.swift */; };
+		9A6911A1285DECEB007FC9DC /* TabbarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A69119F285DECEB007FC9DC /* TabbarViewController.xib */; };
+		9A6911A3285E001A007FC9DC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6911A2285E001A007FC9DC /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		9A513446285755F000D38456 /* LogInSignIn(part3)UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LogInSignIn(part3)UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A51344A285755F000D38456 /* LogInSignIn_part3_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInSignIn_part3_UITests.swift; sourceTree = "<group>"; };
 		9A51344C285755F000D38456 /* LogInSignIn_part3_UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInSignIn_part3_UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		9A69119E285DECEB007FC9DC /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
+		9A69119F285DECEB007FC9DC /* TabbarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TabbarViewController.xib; sourceTree = "<group>"; };
+		9A6911A2285E001A007FC9DC /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +105,7 @@
 		9A513428285755EE00D38456 /* LogInSignIn(part3) */ = {
 			isa = PBXGroup;
 			children = (
+				9A69119B285DECB8007FC9DC /* Tabbar */,
 				9A513429285755EE00D38456 /* AppDelegate.swift */,
 				9A51342B285755EE00D38456 /* SceneDelegate.swift */,
 				9A51342D285755EE00D38456 /* ViewController.swift */,
@@ -106,6 +113,7 @@
 				9A513432285755F000D38456 /* Assets.xcassets */,
 				9A513434285755F000D38456 /* LaunchScreen.storyboard */,
 				9A513437285755F000D38456 /* Info.plist */,
+				9A6911A2285E001A007FC9DC /* HomeViewController.swift */,
 			);
 			path = "LogInSignIn(part3)";
 			sourceTree = "<group>";
@@ -125,6 +133,15 @@
 				9A51344C285755F000D38456 /* LogInSignIn_part3_UITestsLaunchTests.swift */,
 			);
 			path = "LogInSignIn(part3)UITests";
+			sourceTree = "<group>";
+		};
+		9A69119B285DECB8007FC9DC /* Tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				9A69119E285DECEB007FC9DC /* TabbarViewController.swift */,
+				9A69119F285DECEB007FC9DC /* TabbarViewController.xib */,
+			);
+			path = Tabbar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +248,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A6911A1285DECEB007FC9DC /* TabbarViewController.xib in Resources */,
 				9A513436285755F000D38456 /* LaunchScreen.storyboard in Resources */,
 				9A513433285755F000D38456 /* Assets.xcassets in Resources */,
 				9A513431285755EE00D38456 /* Main.storyboard in Resources */,
@@ -258,6 +276,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A6911A3285E001A007FC9DC /* HomeViewController.swift in Sources */,
+				9A6911A0285DECEB007FC9DC /* TabbarViewController.swift in Sources */,
 				9A51342E285755EE00D38456 /* ViewController.swift in Sources */,
 				9A51342A285755EE00D38456 /* AppDelegate.swift in Sources */,
 				9A51342C285755EE00D38456 /* SceneDelegate.swift in Sources */,
