@@ -7,13 +7,24 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class FirstViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
+    //..MARK: Navigation
+    
+    
+    @IBAction func buttonNavToSecondScreen(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let secondCV = storyboard.instantiateViewController(withIdentifier: "SecondViewController")
+        secondCV.modalPresentationStyle = .fullScreen
+        self.present(secondCV, animated: true, completion: nil)
+    }
+    
+    
 
 }
 
