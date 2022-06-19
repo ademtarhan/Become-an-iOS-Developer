@@ -16,7 +16,6 @@ class TimerViewController: UIViewController, TimerImplementable {
     var second: Int = 0
     var minute: Int = 0
     var timer = Timer()
-    
 
     // ..MARK: Outlet
     @IBOutlet var labelEggType: UILabel!
@@ -30,10 +29,11 @@ class TimerViewController: UIViewController, TimerImplementable {
     override func viewDidLoad() {
         super.viewDidLoad()
         setData()
+        design(image: imageEgg)
     }
-    //..MARK: setup data function
+
+    // ..MARK: setup data function
     func setData() {
-        
         second = setSecond()
         sliderTime.maximumValue = Float(second)
         minute = Int((value?[2])!)! / 60
@@ -41,13 +41,12 @@ class TimerViewController: UIViewController, TimerImplementable {
         imageEgg.image = UIImage(named: value?[1] ?? "egg-1")
         labelTime.text = "\(minute):\(second)"
     }
-    
-    
-    //..MARK: setup time function
+
+    // ..MARK: setup time function
     @objc func setTime() {
         second -= 1
         labelTime.text = "\(minute):\(second)"
-        
+
         sliderTime.value = Float(second)
         print(sliderTime.value)
         if second == 0 && minute != 0 {
@@ -61,16 +60,18 @@ class TimerViewController: UIViewController, TimerImplementable {
     }
 
     // ..MARK: Action
-    
-    //..MARK: play  function
+
+    // ..MARK: play  function
     @IBAction func buttonPlay(_ sender: Any) {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(setTime), userInfo: nil, repeats: true)
     }
-    //..MARK: pause  function
+
+    // ..MARK: pause  function
     @IBAction func buttonPause(_ sender: Any) {
         timer.invalidate()
     }
-    //..MARK: stop  function
+
+    // ..MARK: stop  function
     @IBAction func buttonStop(_ sender: Any) {
         timer.invalidate()
         second = setSecond()
@@ -78,7 +79,8 @@ class TimerViewController: UIViewController, TimerImplementable {
         labelTime.text = "\(minute):\(second)"
         sliderTime.value = Float(second)
     }
-    //..MARK: setup second function
+
+    // ..MARK: setup second function
     func setSecond() -> Int {
         if Int((value?[2])!)! % 60 == 0 {
             return 59
@@ -89,20 +91,24 @@ class TimerViewController: UIViewController, TimerImplementable {
 }
 
 extension UIViewController {
-    //..MARK: for alert
+    // ..MARK: for alert
     func showAlert() {
         let alert = UIAlertController(title: "Finished", message: "Eggs is cooked", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { action in
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true, completion: nil)
             self.navToHome()
         }))
         present(alert, animated: true, completion: nil)
-        
     }
-    //..MARK: for back homeview
-    func navToHome(){
+
+    // ..MARK: for back homeview
+    func navToHome() {
         navigationController?.popViewController(animated: true)
     }
+
+    // ..MARK: Design
+    func design(image: UIImageView) {
+        image.layer.masksToBounds = true
+        image.layer.cornerRadius = 30
+    }
 }
-
-

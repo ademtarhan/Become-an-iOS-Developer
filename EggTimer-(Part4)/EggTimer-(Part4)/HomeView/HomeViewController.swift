@@ -23,6 +23,10 @@ class HomeViewController: UIViewController, HomeImplementable {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Egg Timer"
+        designButton(button: buttonEgg1)
+        designButton(button: buttonEgg2)
+        designButton(button: buttonEgg3)
+        designButton(button: buttonEgg4)
     }
 
     // ..MARK: Action
@@ -41,5 +45,12 @@ class HomeViewController: UIViewController, HomeImplementable {
             break
         }
         navigationController?.pushViewController(destination, animated: true)
+    }
+}
+
+extension UIViewController{
+    func designButton(button: UIButton){
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 30
     }
 }

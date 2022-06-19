@@ -133,6 +133,33 @@
                         <constraint firstAttribute="height" constant="60" id="dpt-Cm-nvU"/>
                     </constraints>
                 </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="41" translatesAutoresizingMaskIntoConstraints="NO" id="TFO-H5-kZW">
+                    <rect key="frame" x="109" y="840" width="196.5" height="20.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Stop" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5db-KX-LLP">
+                            <rect key="frame" x="0.0" y="0.0" width="36" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pause" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZQ-bT-KtI">
+                            <rect key="frame" x="77" y="0.0" width="46.5" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Play" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FK5-AP-z7D">
+                            <rect key="frame" x="164.5" y="0.0" width="32" height="20.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20.5" id="8Yu-RX-ofd"/>
+                        <constraint firstAttribute="width" constant="196.5" id="qQ9-Xh-HcF"/>
+                    </constraints>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -148,9 +175,11 @@
                 <constraint firstItem="r57-eh-lOC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UR7-3c-V1u"/>
                 <constraint firstItem="L8I-KB-WWd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="VJZ-g3-n0L"/>
                 <constraint firstItem="r57-eh-lOC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="122" id="WXl-Bm-EXX"/>
+                <constraint firstItem="TFO-H5-kZW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Z1H-0d-CF5"/>
                 <constraint firstItem="BJL-iF-nZd" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="kL3-8Z-kF0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="NRK-Hc-Cwu" secondAttribute="bottom" constant="30" id="meW-Lw-vut"/>
                 <constraint firstItem="r57-eh-lOC" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-306" id="rkh-0l-bsw"/>
+                <constraint firstItem="TFO-H5-kZW" firstAttribute="top" secondItem="NRK-Hc-Cwu" secondAttribute="bottom" constant="8" id="s4d-sO-gLx"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="99.776785714285708"/>
         </view>
