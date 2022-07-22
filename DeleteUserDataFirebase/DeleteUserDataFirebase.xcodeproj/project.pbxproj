@@ -20,8 +20,14 @@
 		9A720520288837CE00028BAE /* FirebaseEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A72051F288837CE00028BAE /* FirebaseEnum.swift */; };
 		9A72052328883A6400028BAE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A72052128883A6400028BAE /* HomeViewController.swift */; };
 		9A72052428883A6400028BAE /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A72052228883A6400028BAE /* HomeViewController.xib */; };
-		9A72052628883BF400028BAE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A72052528883BF400028BAE /* GoogleService-Info.plist */; };
 		9A7205282888478600028BAE /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7205272888478600028BAE /* HomeRouter.swift */; };
+		9A9EDAEA288AD6DE00C4F577 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A9EDAE9288AD6DE00C4F577 /* GoogleService-Info.plist */; };
+		9AC9BF85288925E7001DCED4 /* LogInEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF84288925E7001DCED4 /* LogInEntity.swift */; };
+		9AC9BF8928892C89001DCED4 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF8728892C89001DCED4 /* Cell.swift */; };
+		9AC9BF8A28892C89001DCED4 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC9BF8828892C89001DCED4 /* Cell.xib */; };
+		9AC9BF8C28892F5B001DCED4 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF8B28892F5B001DCED4 /* HomePresenter.swift */; };
+		9AC9BF902889391A001DCED4 /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF8F2889391A001DCED4 /* HomeEntity.swift */; };
+		9AC9BF9228894212001DCED4 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF9128894212001DCED4 /* HomeInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +47,14 @@
 		9A72051F288837CE00028BAE /* FirebaseEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEnum.swift; sourceTree = "<group>"; };
 		9A72052128883A6400028BAE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9A72052228883A6400028BAE /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
-		9A72052528883BF400028BAE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9A7205272888478600028BAE /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		9A9EDAE9288AD6DE00C4F577 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9AC9BF84288925E7001DCED4 /* LogInEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInEntity.swift; sourceTree = "<group>"; };
+		9AC9BF8728892C89001DCED4 /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		9AC9BF8828892C89001DCED4 /* Cell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
+		9AC9BF8B28892F5B001DCED4 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		9AC9BF8F2889391A001DCED4 /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
+		9AC9BF9128894212001DCED4 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		F48A26AFC0D6AD7134A2C8F1 /* Pods_DeleteUserDataFirebase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeleteUserDataFirebase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -93,7 +105,7 @@
 				9A720504288833F800028BAE /* Assets.xcassets */,
 				9A720506288833F800028BAE /* LaunchScreen.storyboard */,
 				9A720509288833F800028BAE /* Info.plist */,
-				9A72052528883BF400028BAE /* GoogleService-Info.plist */,
+				9A9EDAE9288AD6DE00C4F577 /* GoogleService-Info.plist */,
 			);
 			path = DeleteUserDataFirebase;
 			sourceTree = "<group>";
@@ -110,9 +122,13 @@
 		9A720510288834A700028BAE /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9AC9BF8628892C6E001DCED4 /* Cell */,
+				9AC9BF8F2889391A001DCED4 /* HomeEntity.swift */,
+				9AC9BF9128894212001DCED4 /* HomeInteractor.swift */,
+				9AC9BF8B28892F5B001DCED4 /* HomePresenter.swift */,
+				9A7205272888478600028BAE /* HomeRouter.swift */,
 				9A72052128883A6400028BAE /* HomeViewController.swift */,
 				9A72052228883A6400028BAE /* HomeViewController.xib */,
-				9A7205272888478600028BAE /* HomeRouter.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -120,11 +136,12 @@
 		9A720511288834AD00028BAE /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
-				9A7205132888363600028BAE /* LogInViewController.swift */,
-				9A7205142888363600028BAE /* LogInViewController.xib */,
+				9AC9BF84288925E7001DCED4 /* LogInEntity.swift */,
 				9A7205172888364E00028BAE /* LogInInteractor.swift */,
 				9A7205192888365900028BAE /* LogInPresenter.swift */,
 				9A72051B2888366300028BAE /* LogInRouter.swift */,
+				9A7205132888363600028BAE /* LogInViewController.swift */,
+				9A7205142888363600028BAE /* LogInViewController.xib */,
 			);
 			path = LogIn;
 			sourceTree = "<group>";
@@ -136,6 +153,15 @@
 				9A72051F288837CE00028BAE /* FirebaseEnum.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		9AC9BF8628892C6E001DCED4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9AC9BF8728892C89001DCED4 /* Cell.swift */,
+				9AC9BF8828892C89001DCED4 /* Cell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D20A6FF8093B545E1A5EADB5 /* Pods */ = {
@@ -208,10 +234,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A720508288833F800028BAE /* LaunchScreen.storyboard in Resources */,
+				9AC9BF8A28892C89001DCED4 /* Cell.xib in Resources */,
 				9A720505288833F800028BAE /* Assets.xcassets in Resources */,
-				9A72052628883BF400028BAE /* GoogleService-Info.plist in Resources */,
 				9A7205162888363600028BAE /* LogInViewController.xib in Resources */,
 				9A72052428883A6400028BAE /* HomeViewController.xib in Resources */,
+				9A9EDAEA288AD6DE00C4F577 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,10 +294,15 @@
 				9A72051A2888365900028BAE /* LogInPresenter.swift in Sources */,
 				9A7205152888363600028BAE /* LogInViewController.swift in Sources */,
 				9A7204FC288833F600028BAE /* AppDelegate.swift in Sources */,
+				9AC9BF9228894212001DCED4 /* HomeInteractor.swift in Sources */,
+				9AC9BF8C28892F5B001DCED4 /* HomePresenter.swift in Sources */,
 				9A72052328883A6400028BAE /* HomeViewController.swift in Sources */,
 				9A72051C2888366300028BAE /* LogInRouter.swift in Sources */,
 				9A72051E2888376A00028BAE /* FirebaseService.swift in Sources */,
+				9AC9BF85288925E7001DCED4 /* LogInEntity.swift in Sources */,
+				9AC9BF902889391A001DCED4 /* HomeEntity.swift in Sources */,
 				9A720520288837CE00028BAE /* FirebaseEnum.swift in Sources */,
+				9AC9BF8928892C89001DCED4 /* Cell.swift in Sources */,
 				9A7205282888478600028BAE /* HomeRouter.swift in Sources */,
 				9A7205182888364E00028BAE /* LogInInteractor.swift in Sources */,
 			);

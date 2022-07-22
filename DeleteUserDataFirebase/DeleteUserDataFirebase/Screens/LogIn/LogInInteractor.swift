@@ -7,7 +7,7 @@
 
 import Foundation
 protocol LogInInteractor: AnyObject{
-    func createAccount(withEmail email: String, password: String, _ completion: @escaping (Result<Bool, FirebaseError>) -> Void)
+    func createAccount(withEmail email: String, password: String,data: [String:String], _ completion: @escaping (Result<Bool, FirebaseError>) -> Void)
 }
 
 class LogInInteractorImpl: LogInInteractor{
@@ -18,13 +18,14 @@ class LogInInteractorImpl: LogInInteractor{
     }
     
     
-    func createAccount(withEmail email: String, password: String, _ completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
-        service?.createAccount(withEmail: email, password: password, { error in
+    func createAccount(withEmail email: String, password: String, data: [String:String], _ completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
+        service?.createAccount(withEmail: email, password: password, data: data, { error in
             guard error != nil else{
                 return
             }
         })
     }
+    
     
     
     

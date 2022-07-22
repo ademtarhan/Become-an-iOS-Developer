@@ -7,5 +7,7 @@ target 'DeleteUserDataFirebase' do
 
   # Pods for DeleteUserDataFirebase
    pod 'FirebaseUI/Auth'
+   pod 'FirebaseFirestore'
+   pod 'FirebaseDatabase'
 
 end

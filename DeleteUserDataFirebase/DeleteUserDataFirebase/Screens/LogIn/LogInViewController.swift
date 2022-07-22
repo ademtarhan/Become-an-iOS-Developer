@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 protocol LogInViewController: AnyObject {
     func navToHome()
 }
@@ -27,11 +29,18 @@ class LogInViewControllerImpl: UIViewController, LogInViewController {
     
     
     @IBAction func buttonCreate(_ sender: Any) {
-        presenter?.createAccount(withEmail: textfieldEmail.text, password: textfieldPassword.text)
+        let data = ["Email": textfieldEmail.text ?? "","Password":textfieldPassword.text ?? ""]
+        
+        presenter?.createAccount(withEmail: textfieldEmail.text, password: textfieldPassword.text,data: data)
         self.navToHome()
     }
     
-    
+//    func data() {
+//        
+//        let data = ["Email": textfieldEmail.text ?? "","Password":textfieldPassword.text ?? ""]
+//    }
+//    
+//    
     
 }
 

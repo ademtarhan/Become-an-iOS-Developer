@@ -12,4 +12,5 @@ enum FirebaseError: Error {
     case wrongPassword
     case invalidEmail
     case unKnownError
+    case documentsError
 }

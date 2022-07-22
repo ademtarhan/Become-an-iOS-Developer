@@ -9,7 +9,7 @@ import Foundation
 
 protocol LogInPresenter: AnyObject {
     var view: LogInViewController? { get set }
-    func createAccount(withEmail email: String?, password: String?)
+    func createAccount(withEmail email: String?, password: String?,data: [String:String])
 }
 
 class LogInPresenterImpl: LogInPresenter {
@@ -21,13 +21,13 @@ class LogInPresenterImpl: LogInPresenter {
         interactor = LogInInteractorImpl()
     }
 
-    func createAccount(withEmail email: String?, password: String?) {
+    func createAccount(withEmail email: String?, password: String?,data: [String:String]) {
         guard let email = email, let password = password else {
             // .. TODO: SHOW ERROR MESSAGE
             return
         }
 
-        interactor?.createAccount(withEmail: email, password: password, { result in
+        interactor?.createAccount(withEmail: email, password: password, data: data, { result in
             switch result {
             case .success:
                 self.view?.navToHome()
