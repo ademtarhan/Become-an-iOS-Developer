@@ -24,7 +24,7 @@ class FirebaseServiceImpl: FirebaseService {
     let FIRReference = Database.database().reference()
 
     func saveData(child: String, data: [String: String], completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
-        let ref = FIRReference.child("\(child)").child("\(data["postid"])").setValue(data) { error, _ in
+        let ref = FIRReference.child("\(child)").child("\(data["postid"]!)").setValue(data) { error, _ in
             if let error = error {
                 completion(.failure(FirebaseError.timeOut))
             } else {

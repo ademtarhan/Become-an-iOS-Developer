@@ -12,9 +12,13 @@ protocol HomePresenter: AnyObject {
     func getData()
     func saveData(with child: String, wiht data: [String: String])
     func deleteData(data: DataModel,postID: String)
+    func save(text: String?)
 }
 
 class HomePresenterImpl: HomePresenter {
+    func save(text: String?) {
+        //..TODO: text control
+    }
     var interactor: HomeInteractor?
 
     var view: HomeViewControllerImpl?

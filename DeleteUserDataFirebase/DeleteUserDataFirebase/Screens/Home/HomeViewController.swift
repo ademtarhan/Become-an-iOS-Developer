@@ -37,12 +37,14 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
 
     func data() {
         let child = "Posts"
-        let id = Auth.auth().currentUser?.uid ?? ""
-        let postID = Database.database().reference().childByAutoId().key! ?? ""
+        guard let id = Auth.auth().currentUser?.uid else {return}
+        guard let postID = Database.database().reference().childByAutoId().key else {return}
 
         let post = ["text": textfieldInput.text ?? "", "userid": id, "postid": postID]
+        let post1 = DataModel(text: textfieldInput.text ?? "", uid: id, postid: postID)
 
         presenter?.saveData(with: child, wiht: post)
+        //..presenter.savedata(data: post1)
     }
 
     func updateTableView() {
