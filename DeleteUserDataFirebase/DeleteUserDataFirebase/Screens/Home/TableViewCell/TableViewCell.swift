@@ -1,19 +1,15 @@
 //
-//  Cell.swift
+//  TableViewCell.swift
 //  DeleteUserDataFirebase
 //
-//  Created by Adem Tarhan on 21.07.2022.
+//  Created by Adem Tarhan on 25.07.2022.
 //
 
 import UIKit
 
-class Cell: UITableViewCell {
-
-    
+class TableViewCell: UITableViewCell {
+    @IBOutlet weak var labelText: UILabel!
     @IBOutlet weak var labelUID: UILabel!
-    
-    
-    @IBOutlet weak var labelCellText: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,10 +22,10 @@ class Cell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
-    func setData(data: DataModel){
-        self.labelCellText.text = data.text
+    func setdata(data: DataModel){
         self.labelUID.text = data.uid
+        self.labelText.text = data.text
     }
+    
     
 }

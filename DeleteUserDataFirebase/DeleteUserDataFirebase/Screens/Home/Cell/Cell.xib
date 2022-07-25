@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Cell" customModule="DeleteUserDataFirebase" customModuleProvider="target">
             <connections>
-                <outlet property="labelUID" destination="C3E-fp-3mQ" id="S1i-xf-uTC"/>
+                <outlet property="labelUID" destination="C3E-fp-3mQ" id="BAE-qT-iUw"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

@@ -8,81 +8,55 @@
 import Foundation
 
 protocol HomePresenter: AnyObject {
-    var view: HomeViewController? { get set }
-    var datacount: Int? { get }
-    var datas: [DataModel] { get set }
-    func dataCount() -> Int
-    func fetchData()
+    
     func getData()
-    func retrieveData()
     func saveData(with child: String, wiht data: [String: String])
+    func deleteData(data: DataModel,postID: String)
 }
 
 class HomePresenterImpl: HomePresenter {
-    
-    var datas = [DataModel]()
-    
-
     var interactor: HomeInteractor?
-    var datacount: Int? {
-        datas.count
-    }
 
-    init() {
+    var view: HomeViewControllerImpl?
+    
+    init(view: HomeViewControllerImpl) {
         interactor = HomeInteractorImpl()
+        self.view = view
+        //self.view = HomeViewControllerImpl()
     }
 
-    var view: HomeViewController?
-
-    func dataCount() -> Int {
-        return 10
-    }
-
-    func fetchData() {
-        print(datas)
-        interactor?.fetchData(completion: { result in
-            switch result {
-            case let .success(item):
-                //self.datas.append(item)
-                self.view?.datas.append(item)
-                print(self.datas.count)
-            case let .failure(error):
-                print(error)
-            }
-        })
-    }
-    
-    func retrieveData(){
-        interactor?.retrieveData(completion: { result in
-            switch result {
-            case let .success(data):
-                self.datas.append(data)
-                print(data)
-            case let .failure(error):
-                print(error)
-            }
-        })
-    }
-    
     func getData() {
         interactor?.getData(completion: { result in
             switch result {
             case let .success(data):
-                self.datas.append(data)
-                print(data)
+                self.view?.appendData(data: data)
             case .failure:
                 break
             }
         })
     }
-    
 
     func saveData(with child: String, wiht data: [String: String]) {
         interactor?.saveData(with: child, with: data, completion: { result in
             switch result {
             case .success:
-                break
+                let dataModel = DataModel(text: data["text"]!, uid: data["userid"]!,postid: data["postid"]!)
+                self.view?.appendData(data: dataModel)
             case .failure:
+                break
+            }
+        })
+    }
+    
+    func deleteData(data: DataModel,postID: String) {
+       //..
+        interactor?.deleteData(with: data, postID: postID, completion: { result in
+            switch result{
+            case let .success(true):
+                print("success")
+            case let .failure(error):
+                print(error)
+            case let .success(false):
                 break
             }
         })
