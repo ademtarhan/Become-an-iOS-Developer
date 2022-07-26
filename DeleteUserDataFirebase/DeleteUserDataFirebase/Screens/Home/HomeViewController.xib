@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewControllerImpl" customModule="DeleteUserDataFirebase" customModuleProvider="target">
             <connections>
+                <outlet property="activityView" destination="lHY-Se-YBX" id="9Fa-Ob-n0L"/>
                 <outlet property="tableView" destination="hCq-D2-fB7" id="Fyj-Cs-sv9"/>
                 <outlet property="textfieldInput" destination="RPb-cR-1mX" id="IqN-vF-fku"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="ba1-qR-iF6"/>
@@ -56,6 +57,10 @@
                         <action selector="buttonAddItem:" destination="-1" eventType="touchUpInside" id="CIf-Dn-8Yn"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="lHY-Se-YBX">
+                    <rect key="frame" x="197" y="438" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.72072328929999996" green="0.89411764709999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

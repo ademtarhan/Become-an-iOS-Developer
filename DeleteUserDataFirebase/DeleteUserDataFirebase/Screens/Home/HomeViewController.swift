@@ -19,6 +19,8 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     @IBOutlet var tableView: UITableView!
 
     @IBOutlet var textfieldInput: UITextField!
+    @IBOutlet var activityView: UIActivityIndicatorView!
+
     var datas = [DataModel]()
     var presenter: HomePresenter?
     var dataCount: Int?
@@ -26,13 +28,29 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        activityView.style = .large
+        activityView.color = .blue
+
         let nibCell = UINib(nibName: "TableViewCell", bundle: nil)
         tableView.register(nibCell, forCellReuseIdentifier: "cell")
-
         tableView.delegate = self
         tableView.dataSource = self
         presenter = HomePresenterImpl(view: self)
         presenter?.getData()
+    }
+
+    func promptForAnswer() {
+        let ac = UIAlertController(title: "Enter Context", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+
+        let submitAction = UIAlertAction(title: "Add", style: .default) { [unowned ac] _ in
+            let answer = ac.textFields![0]
+            // do something interesting with "answer" here
+        }
+
+        ac.addAction(submitAction)
+
+        present(ac, animated: true)
     }
 
     func data() {
@@ -45,9 +63,15 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         presenter?.saveItem(text: textfieldInput.text) // ..MARK: for data model - HomeEntity
     }
 
+    func startActivity() {
+        activityView.startAnimating()
+    }
+
     // ..MARK: add Item button
     @IBAction func buttonAddItem(_ sender: Any) {
-        data()
+        
+        showAddItemAlert()
+        //data()
         textfieldInput.text = ""
     }
 
@@ -68,11 +92,39 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
 }
 
 extension UIViewController {
+    
+    func showAddItemAlert() {
+        let alert = UIAlertController(title: "Share Post", message: "", preferredStyle: UIAlertController.Style.alert)
+        alert.addTextField { field in
+            field.placeholder = "Post Text"
+        }
+        alert.addAction(UIAlertAction(title: "Add Image", style: UIAlertAction.Style.default, handler: { _ in
+            alert.dismiss(animated: true)
+        }))
+        
+        
+        
+        alert.addAction(UIAlertAction(title: "Share", style: UIAlertAction.Style.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { [self] _ in
+            alert.dismiss(animated: true,completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    
     func showDeleteAccountAlert() {
         let alert = UIAlertController(title: "Deleted", message: "Account is deleted", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true, completion: nil)
             self.navToLog()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func showtimer() {
+        let alert = UIAlertController(title: "timer finished", message: "timer finished", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
+            alert.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
     }
@@ -84,6 +136,7 @@ extension UIViewController {
         }))
         present(alert, animated: true, completion: nil)
     }
+
     func showDeletedItemAlert() {
         let alert = UIAlertController(title: "Deleted", message: "Post is deleted", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in

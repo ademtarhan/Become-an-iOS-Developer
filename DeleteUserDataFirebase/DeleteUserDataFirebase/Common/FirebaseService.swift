@@ -9,11 +9,13 @@ import Combine
 import FirebaseAuth
 import FirebaseDatabase
 import Foundation
+import FirebaseStorage
 
 protocol FirebaseService {
     var user: FirebaseAuth.User? { get }
     var userid: String! { get }
     var postid: String! { get }
+    var imageUrl: String! { get }
     func deleteUser() -> Future<Bool, FirebaseError>
     func getUser(completion: @escaping (Result<FirebaseAuth.User?, FirebaseError>) -> Void)
     func createAccount(withEmail email: String, password: String, data: [String: String], _ completion: @escaping (Result<Bool, FirebaseError>) -> Void)
@@ -23,6 +25,7 @@ protocol FirebaseService {
 }
 
 class FirebaseServiceImpl: FirebaseService {
+    
     let FIRReference = Database.database().reference()
    
 
@@ -32,6 +35,11 @@ class FirebaseServiceImpl: FirebaseService {
 
     var postid: String! {
         Database.database().reference().childByAutoId().key ?? ""
+    }
+    
+    var imageUrl: String! {
+        //Storage.storage().reference().child("Images").child(userid)
+        Database.database().reference().child("Posts").child(postid).url
     }
 
     var user: FirebaseAuth.User? {
