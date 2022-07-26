@@ -27,19 +27,23 @@ enum HomeError: Error {
 }
 
 struct DataModel {
-    var text = ""
-    var uid = ""
-    var postid = ""
+    var postText = ""
+    var uID = ""
+    var postID = ""
     
-    init(text: String,uid: String,postid: String){
-        self.text = text
-        self.uid = uid
-        self.postid = postid
+    var asJson: [String: Any] {
+        return ["postText":postText, "userID":uID,"postID":postID]
+    }
+    
+    init(postText: String,uID: String,postID: String){
+        self.postText = postText
+        self.uID = uID
+        self.postID = postID
     }
 
     init(snapShot: [String: Any]) {
-        self.text = snapShot["text"] as! String
-        self.uid = snapShot["userid"] as! String
-        self.postid = snapShot["postid"] as! String
+        self.postText = snapShot["postText"] as! String
+        self.uID = snapShot["userID"] as! String
+        self.postID = snapShot["postID"] as! String
     }
 }

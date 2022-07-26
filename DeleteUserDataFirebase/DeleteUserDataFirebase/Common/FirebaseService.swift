@@ -11,28 +11,47 @@ import FirebaseDatabase
 import Foundation
 
 protocol FirebaseService {
-    func saveData(child: String, data: [String: String], completion: @escaping (Result<Bool, FirebaseError>) -> Void)
+    var user: FirebaseAuth.User? { get }
+    var userid: String! { get }
+    var postid: String! { get }
     func deleteUser() -> Future<Bool, FirebaseError>
     func getUser(completion: @escaping (Result<FirebaseAuth.User?, FirebaseError>) -> Void)
     func createAccount(withEmail email: String, password: String, data: [String: String], _ completion: @escaping (Result<Bool, FirebaseError>) -> Void)
     func getData(completion: @escaping (Result<DataModel, FirebaseError>) -> Void)
-    var user: FirebaseAuth.User? { get }
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void)
+    func saveData(data: DataModel, completion: @escaping (Result<DataModel, FirebaseError>) -> Void)
 }
 
 class FirebaseServiceImpl: FirebaseService {
     let FIRReference = Database.database().reference()
+   
 
-    func saveData(child: String, data: [String: String], completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
-        let ref = FIRReference.child("\(child)").child("\(data["postid"]!)").setValue(data) { error, _ in
-            if let error = error {
+    var userid: String! {
+        Auth.auth().currentUser?.uid ?? ""
+    }
+
+    var postid: String! {
+        Database.database().reference().childByAutoId().key ?? ""
+    }
+
+    var user: FirebaseAuth.User? {
+        Auth.auth().currentUser
+    }
+
+    // ..MARK: save data with DataModel
+    func saveData(data: DataModel, completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
+        FIRReference.child("Posts").child(data.postID).setValue(data.asJson) { error, _ in
+            if let _ = error {
                 completion(.failure(FirebaseError.timeOut))
             } else {
-                completion(.success(true))
+                completion(.success(data))
             }
         }
     }
 
+    
+
+    // ..MARK: creat account function
     func createAccount(withEmail email: String, password: String, data: [String: String], _ completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { _, error in
             if let error = error {
@@ -45,15 +64,13 @@ class FirebaseServiceImpl: FirebaseService {
         }
     }
 
-    var user: FirebaseAuth.User? {
-        Auth.auth().currentUser
-    }
-
+    // ..MARK: get user function
     func getUser(completion: @escaping (Result<User?, FirebaseError>) -> Void) {
         let User = Auth.auth().currentUser
         completion(.success(User))
     }
 
+    // ..MARK: get Auth error type function
     private func getAuthError(errCode: Int) -> FirebaseError {
         let error = AuthErrorCode(rawValue: errCode)
         switch error {
@@ -66,11 +83,12 @@ class FirebaseServiceImpl: FirebaseService {
         }
     }
 
+    // ..MARK: delete user function
     func deleteUser() -> Future<Bool, FirebaseError> {
         return Future { promise in
             let user = Auth.auth().currentUser
             user?.delete { error in
-                if let error = error {
+                if let _ = error {
                     // An error happened.
                     print("account don't deleted")
                     promise(.failure(.timeOut))
@@ -82,6 +100,7 @@ class FirebaseServiceImpl: FirebaseService {
         }
     }
 
+    // ..MARK: get data function
     func getData(completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
         FIRReference.child("Posts").getData { error, snapShot in
             if let _ = error {
@@ -105,6 +124,7 @@ class FirebaseServiceImpl: FirebaseService {
         }
     }
 
+    // ..MARK: delete data function
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
         FIRReference.child("Posts").child(postID).removeValue { error, _ in
             if let err = error {

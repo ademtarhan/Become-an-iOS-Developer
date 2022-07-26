@@ -23,8 +23,8 @@ class TableViewCell: UITableViewCell {
     }
     
     func setdata(data: DataModel){
-        self.labelUID.text = data.uid
-        self.labelText.text = data.text
+        self.labelUID.text = data.uID
+        self.labelText.text = data.postText
     }
     
     

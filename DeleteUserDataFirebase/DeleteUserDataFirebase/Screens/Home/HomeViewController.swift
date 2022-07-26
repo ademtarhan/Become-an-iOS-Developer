@@ -36,35 +36,29 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
     }
 
     func data() {
-        let child = "Posts"
-        guard let id = Auth.auth().currentUser?.uid else {return}
-        guard let postID = Database.database().reference().childByAutoId().key else {return}
+        guard let id = Auth.auth().currentUser?.uid else { return }
+        guard let postID = Database.database().reference().childByAutoId().key else { return }
 
         let post = ["text": textfieldInput.text ?? "", "userid": id, "postid": postID]
-        let post1 = DataModel(text: textfieldInput.text ?? "", uid: id, postid: postID)
 
-        presenter?.saveData(with: child, wiht: post)
-        //..presenter.savedata(data: post1)
+        // presenter?.saveData(with: post)   //..MARK: for dictionary
+        presenter?.saveItem(text: textfieldInput.text) // ..MARK: for data model - HomeEntity
     }
 
-    func updateTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-
+    // ..MARK: add Item button
     @IBAction func buttonAddItem(_ sender: Any) {
         data()
-
         textfieldInput.text = ""
     }
 
+    // ..MARK: delete account button
     @IBAction func deleteAccount(_ sender: Any) {
         DispatchQueue.main.async {
-            self.showAlert()
+            self.showDeleteAccountAlert()
         }
     }
 
+    // ..MARK: append data and reload table view
     func appendData(data: DataModel) {
         DispatchQueue.main.async {
             self.datas.append(data)
@@ -74,11 +68,26 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
 }
 
 extension UIViewController {
-    func showAlert() {
+    func showDeleteAccountAlert() {
         let alert = UIAlertController(title: "Deleted", message: "Account is deleted", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true, completion: nil)
             self.navToLog()
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+
+    func showEmptyTextAlert() {
+        let alert = UIAlertController(title: "Empty Space", message: "Please fill in the blank", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    func showDeletedItemAlert() {
+        let alert = UIAlertController(title: "Deleted", message: "Post is deleted", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
+            alert.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
     }
@@ -106,7 +115,7 @@ extension HomeViewControllerImpl: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCell.EditingStyle.delete {
             let data = datas.remove(at: indexPath.row)
-            presenter?.deleteData(data: data, postID: data.postid)
+            presenter?.deleteData(data: data, postID: data.postID)
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
         }
     }

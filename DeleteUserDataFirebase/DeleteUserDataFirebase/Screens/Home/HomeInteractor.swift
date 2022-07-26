@@ -8,35 +8,30 @@
 import Foundation
 
 protocol HomeInteractor: AnyObject {
-    func saveData(with child: String, with data: [String: String], completion: @escaping (Result<Bool, FirebaseError>) -> Void)
     func getData(completion: @escaping (Result<DataModel, FirebaseError>) -> Void)
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void)
-    func save(text: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void)
+    func saveItem(text: String, completion: @escaping (Result<DataModel, FirebaseError>) -> Void)
 }
 
 class HomeInteractorImpl: HomeInteractor {
-    func save(text: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
-        //..TODO: get userid get postid get child
-    }
-    
-    
-    func saveData(with child: String, with data: [String: String], completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
-        service?.saveData(child: child, data: data, completion: { result in
-            switch result {
-            case .success:
-                completion(.success(true))
-            case let .failure(error):
-                completion(.failure(error))
-            }
-        })
-    }
-
     var service: FirebaseService?
 
     init() {
         service = FirebaseServiceImpl()
     }
-
+    //..MARK: save item
+    func saveItem(text: String, completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
+        let post = DataModel(postText: text, uID: service?.userid ?? "", postID: service?.postid ?? "")
+        service?.saveData(data: post, completion: { result in
+            switch result {
+            case let .success(post):
+                completion(.success(post))
+            case .failure:
+                completion(.failure(.timeOut))
+            }
+        })
+    }
+    //..MARK: get data
     func getData(completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
         service?.getData(completion: { result in
             switch result {
@@ -48,6 +43,7 @@ class HomeInteractorImpl: HomeInteractor {
         })
     }
 
+    //..MARK: delete data
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
         service?.deleteData(with: data, postID: postID, completion: { result in
             switch result {
