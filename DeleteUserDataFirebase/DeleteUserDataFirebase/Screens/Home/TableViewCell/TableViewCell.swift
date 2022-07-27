@@ -8,8 +8,10 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
-    @IBOutlet weak var labelText: UILabel!
-    @IBOutlet weak var labelUID: UILabel!
+    @IBOutlet var labelText: UILabel!
+    @IBOutlet var labelUID: UILabel!
+    
+    @IBOutlet weak var imagePost: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,11 +23,24 @@ class TableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    func setdata(data: DataModel){
-        self.labelUID.text = data.uID
-        self.labelText.text = data.postText
+
+    func setdata(data: DataModel) {
+        labelUID.text = data.uID
+        labelText.text = data.postText
+        load(url: URL(string: data.imageURL)!)
     }
+
     
     
+    func load(url: URL) {
+            DispatchQueue.global().async { [weak self] in
+                if let data = try? Data(contentsOf: url) {
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self?.imagePost.image = image
+                        }
+                    }
+                }
+            }
+        }
 }

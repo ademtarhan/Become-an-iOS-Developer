@@ -60,10 +60,6 @@ class HomePresenterImpl: HomePresenter {
         interactor?.deleteData(with: data, postID: postID, completion: { result in
             switch result {
             case .success:
-                self.view?.activityView.startAnimating()
-                self.view?.activityView.isHidden = true
-                //self.view?.activityView.stopAnimating()
-                //self.view?.showDeletedItemAlert()
                 
                 print("success")
             case let .failure(error):

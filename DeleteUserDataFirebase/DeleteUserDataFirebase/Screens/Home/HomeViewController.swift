@@ -15,11 +15,11 @@ protocol HomeViewController: AnyObject {
     func appendData(data: DataModel)
 }
 
-class HomeViewControllerImpl: UIViewController, HomeViewController {
+class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var tableView: UITableView!
 
+    @IBOutlet var imageView: UIImageView!
     @IBOutlet var textfieldInput: UITextField!
-    @IBOutlet var activityView: UIActivityIndicatorView!
 
     var datas = [DataModel]()
     var presenter: HomePresenter?
@@ -27,9 +27,6 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        activityView.style = .large
-        activityView.color = .blue
 
         let nibCell = UINib(nibName: "TableViewCell", bundle: nil)
         tableView.register(nibCell, forCellReuseIdentifier: "cell")
@@ -53,25 +50,30 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
         present(ac, animated: true)
     }
 
-    func data() {
-        guard let id = Auth.auth().currentUser?.uid else { return }
-        guard let postID = Database.database().reference().childByAutoId().key else { return }
 
-        let post = ["text": textfieldInput.text ?? "", "userid": id, "postid": postID]
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
+        dismiss(animated: true, completion: { () -> Void in
 
-        // presenter?.saveData(with: post)   //..MARK: for dictionary
-        presenter?.saveItem(text: textfieldInput.text) // ..MARK: for data model - HomeEntity
-    }
+        })
 
-    func startActivity() {
-        activityView.startAnimating()
+        imageView.image = image
     }
 
     // ..MARK: add Item button
     @IBAction func buttonAddItem(_ sender: Any) {
-        
-        showAddItemAlert()
-        //data()
+        var imagePicker = UIImagePickerController()
+        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
+            print("Button capture")
+
+            imagePicker.delegate = self
+            imagePicker.sourceType = .savedPhotosAlbum
+            imagePicker.allowsEditing = false
+
+            present(imagePicker, animated: true, completion: nil)
+        }
+
+        // showAddItemAlert()
+        presenter?.saveItem(text: textfieldInput.text) // ..MARK: for data model - HomeEntity
         textfieldInput.text = ""
     }
 
@@ -92,7 +94,6 @@ class HomeViewControllerImpl: UIViewController, HomeViewController {
 }
 
 extension UIViewController {
-    
     func showAddItemAlert() {
         let alert = UIAlertController(title: "Share Post", message: "", preferredStyle: UIAlertController.Style.alert)
         alert.addTextField { field in
@@ -101,17 +102,14 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "Add Image", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true)
         }))
-        
-        
-        
+
         alert.addAction(UIAlertAction(title: "Share", style: UIAlertAction.Style.default, handler: nil))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { [self] _ in
-            alert.dismiss(animated: true,completion: nil)
+            alert.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
     }
-    
-    
+
     func showDeleteAccountAlert() {
         let alert = UIAlertController(title: "Deleted", message: "Account is deleted", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
