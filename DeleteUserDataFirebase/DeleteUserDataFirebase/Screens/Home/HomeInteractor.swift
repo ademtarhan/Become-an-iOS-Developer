@@ -11,14 +11,32 @@ protocol HomeInteractor: AnyObject {
     func getData(completion: @escaping (Result<DataModel, FirebaseError>) -> Void)
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void)
     func saveItem(text: String, completion: @escaping (Result<DataModel, FirebaseError>) -> Void)
+    func deleteAccount(completion: @escaping (Bool) -> Void)
 }
 
 class HomeInteractorImpl: HomeInteractor {
+    
     var service: FirebaseService?
 
     init() {
         service = FirebaseServiceImpl()
     }
+    
+    func deleteAccount(completion: @escaping (Bool) -> Void){
+        
+        service?.deleteAccount(completion: { bool in
+            switch bool{
+            case true:
+                completion(true)
+            case false:
+                completion(false)
+            }
+        })
+        
+    }
+    
+    
+    
     //..MARK: save item
     func saveItem(text: String, completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
         let post = DataModel(postText: text, uID: service?.userid ?? "", postID: service?.postid ?? "",imageURL:  "")

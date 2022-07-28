@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DeleteAccountViewControllerImpl" customModule="DeleteUserDataFirebase" customModuleProvider="target">
+            <connections>
+                <outlet property="textfieldEmail" destination="NDP-tb-4cb" id="Who-RL-jpg"/>
+                <outlet property="textfieldPassword" destination="qrC-Zp-YNW" id="YZW-gA-PX0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log in for delete account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apc-dD-39o">
+                    <rect key="frame" x="20" y="144" width="374" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="7dw-MV-4f9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NDP-tb-4cb">
+                    <rect key="frame" x="20" y="214" width="374" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="veo-17-bAQ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qrC-Zp-YNW">
+                    <rect key="frame" x="20" y="264" width="374" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="A6T-rG-H0l"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="u6l-Hi-jfs"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q8s-EZ-yCD">
+                    <rect key="frame" x="157" y="324" width="100" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="YyV-Mt-92q"/>
+                        <constraint firstAttribute="width" constant="100" id="hzf-fo-4c6"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Log In"/>
+                    <connections>
+                        <action selector="buttonLogIn:" destination="-1" eventType="touchUpInside" id="044-R4-xaG"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qrC-Zp-YNW" secondAttribute="trailing" constant="20" id="0AK-RT-KAv"/>
+                <constraint firstItem="apc-dD-39o" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="BMX-D7-Pzf"/>
+                <constraint firstItem="NDP-tb-4cb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="NZ4-fH-W0q"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="apc-dD-39o" secondAttribute="trailing" constant="20" id="d30-aN-xs9"/>
+                <constraint firstItem="qrC-Zp-YNW" firstAttribute="top" secondItem="NDP-tb-4cb" secondAttribute="bottom" constant="20" id="dJJ-rO-8ge"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NDP-tb-4cb" secondAttribute="trailing" constant="20" id="dsh-Z6-DgC"/>
+                <constraint firstItem="Q8s-EZ-yCD" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="exQ-4p-0ar"/>
+                <constraint firstItem="apc-dD-39o" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="gkv-Wk-4WK"/>
+                <constraint firstItem="qrC-Zp-YNW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="lQv-07-bxw"/>
+                <constraint firstItem="NDP-tb-4cb" firstAttribute="top" secondItem="apc-dD-39o" secondAttribute="bottom" constant="40" id="p2Q-tK-Awf"/>
+                <constraint firstItem="Q8s-EZ-yCD" firstAttribute="top" secondItem="qrC-Zp-YNW" secondAttribute="bottom" constant="30" id="qhW-OV-HZO"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="76"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

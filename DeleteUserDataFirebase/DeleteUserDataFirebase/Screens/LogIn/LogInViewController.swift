@@ -7,38 +7,33 @@
 
 import UIKit
 
-
-
 protocol LogInViewController: AnyObject {
     func navToHome()
 }
 
 class LogInViewControllerImpl: UIViewController, LogInViewController {
     var presenter: LogInPresenter?
-    
-    
-    @IBOutlet weak var textfieldEmail: UITextField!
-    
-    @IBOutlet weak var textfieldPassword: UITextField!
+
+    @IBOutlet var textfieldEmail: UITextField!
+
+    @IBOutlet var textfieldPassword: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         presenter = LogInPresenterImpl()
     }
-    
-    
+
     @IBAction func buttonLogIn(_ sender: Any) {
         presenter?.logIn(with: textfieldEmail.text ?? "", password: textfieldPassword.text ?? "")
+        navToHome()
     }
-    
+
     @IBAction func buttonCreate(_ sender: Any) {
-        let data = ["Email": textfieldEmail.text ?? "","Password":textfieldPassword.text ?? ""]
-        
-        presenter?.createAccount(withEmail: textfieldEmail.text, password: textfieldPassword.text,data: data)
-        self.navToHome()
+        let data = ["Email": textfieldEmail.text ?? "", "Password": textfieldPassword.text ?? ""]
+
+        presenter?.createAccount(withEmail: textfieldEmail.text, password: textfieldPassword.text, data: data)
+        navToHome()
     }
-    
-    
 }
 
 extension UIViewController {

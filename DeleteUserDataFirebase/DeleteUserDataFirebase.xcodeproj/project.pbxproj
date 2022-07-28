@@ -26,6 +26,8 @@
 		9A934A8928916A4E0046E59C /* AddInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A934A8828916A4E0046E59C /* AddInteractor.swift */; };
 		9A934A8B28916A5E0046E59C /* AddPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A934A8A28916A5E0046E59C /* AddPresenter.swift */; };
 		9A934A8D289174850046E59C /* AddEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A934A8C289174850046E59C /* AddEntity.swift */; };
+		9A934A912892BE350046E59C /* DeleteAccountViewControllerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A934A8F2892BE350046E59C /* DeleteAccountViewControllerImpl.swift */; };
+		9A934A922892BE350046E59C /* DeleteAccountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A934A902892BE350046E59C /* DeleteAccountViewController.xib */; };
 		9A9EDAEA288AD6DE00C4F577 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A9EDAE9288AD6DE00C4F577 /* GoogleService-Info.plist */; };
 		9AC9BF85288925E7001DCED4 /* LogInEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF84288925E7001DCED4 /* LogInEntity.swift */; };
 		9AC9BF8C28892F5B001DCED4 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF8B28892F5B001DCED4 /* HomePresenter.swift */; };
@@ -58,6 +60,8 @@
 		9A934A8828916A4E0046E59C /* AddInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInteractor.swift; sourceTree = "<group>"; };
 		9A934A8A28916A5E0046E59C /* AddPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPresenter.swift; sourceTree = "<group>"; };
 		9A934A8C289174850046E59C /* AddEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntity.swift; sourceTree = "<group>"; };
+		9A934A8F2892BE350046E59C /* DeleteAccountViewControllerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountViewControllerImpl.swift; sourceTree = "<group>"; };
+		9A934A902892BE350046E59C /* DeleteAccountViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteAccountViewController.xib; sourceTree = "<group>"; };
 		9A9EDAE9288AD6DE00C4F577 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9AC9BF84288925E7001DCED4 /* LogInEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInEntity.swift; sourceTree = "<group>"; };
 		9AC9BF8B28892F5B001DCED4 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
@@ -133,6 +137,7 @@
 		9A720510288834A700028BAE /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9A934A8E2892BE1E0046E59C /* DeleteAccount */,
 				9AC9BF8F2889391A001DCED4 /* HomeEntity.swift */,
 				9AC9BF9128894212001DCED4 /* HomeInteractor.swift */,
 				9AC9BF8B28892F5B001DCED4 /* HomePresenter.swift */,
@@ -176,6 +181,15 @@
 				9A934A8C289174850046E59C /* AddEntity.swift */,
 			);
 			path = Add;
+			sourceTree = "<group>";
+		};
+		9A934A8E2892BE1E0046E59C /* DeleteAccount */ = {
+			isa = PBXGroup;
+			children = (
+				9A934A8F2892BE350046E59C /* DeleteAccountViewControllerImpl.swift */,
+				9A934A902892BE350046E59C /* DeleteAccountViewController.xib */,
+			);
+			path = DeleteAccount;
 			sourceTree = "<group>";
 		};
 		9AEB9F8E288E941300150303 /* TableViewCell */ = {
@@ -263,6 +277,7 @@
 				9A72052428883A6400028BAE /* HomeViewController.xib in Resources */,
 				9A934A87289160250046E59C /* AddViewController.xib in Resources */,
 				9A9EDAEA288AD6DE00C4F577 /* GoogleService-Info.plist in Resources */,
+				9A934A922892BE350046E59C /* DeleteAccountViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +337,7 @@
 				9A7205152888363600028BAE /* LogInViewController.swift in Sources */,
 				9A7204FC288833F600028BAE /* AppDelegate.swift in Sources */,
 				9AC9BF9228894212001DCED4 /* HomeInteractor.swift in Sources */,
+				9A934A912892BE350046E59C /* DeleteAccountViewControllerImpl.swift in Sources */,
 				9A934A86289160250046E59C /* AddViewController.swift in Sources */,
 				9AC9BF8C28892F5B001DCED4 /* HomePresenter.swift in Sources */,
 				9A934A8B28916A5E0046E59C /* AddPresenter.swift in Sources */,

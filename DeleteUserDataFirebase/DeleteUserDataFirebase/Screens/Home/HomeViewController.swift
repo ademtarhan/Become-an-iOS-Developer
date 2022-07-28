@@ -54,6 +54,9 @@ class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePicke
         }
     }
 
+    func delete(){
+        presenter?.deleteAccount()
+    }
     
 
     // ..MARK: append data and reload table view
@@ -71,11 +74,6 @@ class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePicke
         let mediaFolder = storageReference.child("images")
         let imageReference = mediaFolder.child("photo.jpg")
 
-//        imageReference.putData(data, metadata: nil) { _, error in
-//            if error != nil {
-//                print("Error\(error?.localizedDescription)" ?? "Error")
-//            }
-//        }
     }
 }
 
@@ -104,10 +102,13 @@ extension HomeViewControllerImpl {
     }
 
     func showDeleteAccountAlert() {
-        let alert = UIAlertController(title: "Deleted", message: "Account is deleted", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true, completion: nil)
-            self.navToLog()
+            self.delete()
+        }))
+        alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertAction.Style.default, handler: { _ in
+            alert.dismiss(animated: true,completion: nil)
         }))
         present(alert, animated: true, completion: nil)
     }
@@ -130,7 +131,7 @@ extension HomeViewControllerImpl {
     }
 
     func navToLog() {
-        let logInVC = LogInViewControllerImpl(nibName: "LogInViewController", bundle: nil)
+        let logInVC = LogInViewControllerImpl(nibName: "DeleteAccountViewController", bundle: nil)
         logInVC.modalPresentationStyle = .fullScreen
         present(logInVC, animated: true, completion: nil)
     }

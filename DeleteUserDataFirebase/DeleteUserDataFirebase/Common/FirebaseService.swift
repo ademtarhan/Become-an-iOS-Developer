@@ -25,45 +25,163 @@ protocol FirebaseService {
     func saveImage(postImage: UIImageView, completion: @escaping (Result<Bool, FirebaseError>) -> Void)
 
     func downUrl(postID: String, completion: @escaping (Result<URL, FirebaseError>) -> Void)
-    func logIn(with email: String,password: String, completion: @escaping (Bool) -> Void)
+    func logIn(with email: String, password: String, completion: @escaping (Bool) -> Void)
 
-    //..MARK: firebase processes funcs
-    func deleteAccount(with userID: String, completion: @escaping (Bool) -> Void)
+    // ..MARK: firebase processes funcs
+    func deleteAccount(completion: @escaping (Bool) -> Void)
     func deleteAquariums(with aquariumID: String, completion: @escaping (Bool) -> Void)
-    func deleteDevices(with devicesID: String, completion: @escaping (Bool) -> Void)
+    func deleteDevices(with deviceID: String, completion: @escaping (Bool) -> Void)
 }
 
 class FirebaseServiceImpl: FirebaseService {
-    let FIRReference = Database.database().reference()
-    
-    //..MARK: Firebase delete account and data processes
-    
-    //..MARK: Delete Account Func
-    func deleteAccount(with userID: String, completion: @escaping (Bool) -> Void) {
-        //..TODO: Delete Account
-        FIRReference.child("Users").child(userID)
-    }
-    //..MARK: Delete Aquariums Func
-    func deleteAquariums(with aquariumID: String, completion: @escaping (Bool) -> Void) {
-        //..TODO: Delete Aquariums
-    }
-    //..MARK: Delete Devices Func
-    
-    func deleteDevices(with devicesID: String, completion: @escaping (Bool) -> Void) {
-        //..TODO: Delete Devices
-    }
-    
-    
-    func logIn(with email: String,password: String, completion: @escaping (Bool) -> Void){
-        Auth.auth().signIn(withEmail: email, password: password) { result,error in
+    let databaseRef = Database.database().reference()
+
+    // ..MARK: Firebase delete account and data processes
+
+    // ..MARK: Delete Account Func
+    func deleteAccount(completion: @escaping (Bool) -> Void) {
+        // ..TODO: Delete Account
+        guard let userid = Auth.auth().currentUser?.uid else { return }
+
+        var aquariumsID = [String]()
+        let userRef = databaseRef.child("Users").child(userid)
+        let aquariumsRef = databaseRef.child("Users").child(userid).child("aquariums").ref
+
+        aquariumsRef.getData { error, data in
             if let error = error {
-                print("SigIn Error: \(error.localizedDescription)")
-            }else{
-                print("Log In Success")
+                print(error.localizedDescription)
+            } else {
+                if data.exists() {
+                    guard let snap = data.value as? [String: Any] else { return }
+
+                    for (id, d) in snap {
+                        guard let dict = d as? [String: Any] else {
+                            return
+                        }
+                        aquariumsID.append(id)
+                        print("id:\(aquariumsID)")
+                        self.deleteAquariums(with: id) { bool in
+                            switch bool {
+                            case true:
+                                print("success")
+
+                                userRef.removeValue { error, _ in
+                                    if let error = error{
+                                        completion(false)
+                                    }else{
+                                        completion(true)
+                                    }
+                                }
+
+                            case false:
+                                print("failure")
+                                completion(false)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for aquariumID in aquariumsID {
+            print(aquariumID)
+            deleteAquariums(with: aquariumID) { bool in
+                switch bool {
+                case true:
+                    print("success")
+                case false:
+                    print("failure")
+                }
             }
         }
     }
-    
+
+    // ..MARK: Delete Aquariums Func
+    func deleteAquariums(with aquariumID: String, completion: @escaping (Bool) -> Void) {
+        // ..TODO: Delete Aquariums
+
+        var devicesID = [String]()
+        let aquariumsRef = databaseRef.child("aquariums").child(aquariumID)
+        let deviceRef = databaseRef.child("aquariums").child(aquariumID).child("devices").ref
+
+        deviceRef.getData { error, data in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                if data.exists() {
+                    guard let snap = data.value as? [String: Any] else { return }
+                    for (id, d) in snap {
+                        guard let dict = d as? [String: Any] else {
+                            return
+                        }
+                        devicesID.append(id)
+                        print("id:\(devicesID)")
+                        self.deleteDevices(with: id) { bool in
+                          
+                            switch bool {
+                            case true:
+                                print("success")
+
+                                aquariumsRef.removeValue { error, _ in
+                                    if let error = error{
+                                        completion(false)
+                                    }else{
+                                        completion(true)
+                                    }
+                                }
+
+                            case false:
+                                completion(false)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for deviceID in devicesID {
+            print(deviceID)
+            deleteDevices(with: deviceID) { bool in
+                switch bool {
+                case true:
+                    print("success")
+                case false:
+                    print("failure")
+                }
+            }
+        }
+    }
+
+    // ..MARK: Delete Devices Func
+
+    func deleteDevices(with devicesID: String, completion: @escaping (Bool) -> Void) {
+        // ..TODO: Delete Devices
+
+        let deviceRef = databaseRef.child("devices").child(devicesID).ref
+
+        print(deviceRef)
+
+        deviceRef.removeValue { error, _ in
+            if let error = error{
+                completion(false)
+            }else{
+                completion(true)
+            }
+            
+        }
+    }
+
+    func logIn(with email: String, password: String, completion: @escaping (Bool) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { _, error in
+            if let error = error {
+                print("SigIn Error: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("Log In Success")
+                completion(true)
+            }
+        }
+    }
 
     var userid: String! {
         Auth.auth().currentUser?.uid ?? ""
@@ -116,7 +234,7 @@ class FirebaseServiceImpl: FirebaseService {
 
     // ..MARK: save data with DataModel
     func saveData(data: DataModel, completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
-        FIRReference.child("Posts").child(data.postID).setValue(data.asJson) { error, _ in
+        databaseRef.child("Posts").child(data.postID).setValue(data.asJson) { error, _ in
             if let _ = error {
                 completion(.failure(FirebaseError.timeOut))
             } else {
@@ -131,7 +249,7 @@ class FirebaseServiceImpl: FirebaseService {
             if let error = error {
                 completion(.failure(self.getAuthError(errCode: error._code)))
             } else {
-                self.FIRReference.child("Users").setValue(data)
+                self.databaseRef.child("Users").setValue(data)
 
                 completion(.success(true))
             }
@@ -176,7 +294,7 @@ class FirebaseServiceImpl: FirebaseService {
 
     // ..MARK: get data function
     func getData(completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
-        FIRReference.child("Posts").getData { error, snapShot in
+        databaseRef.child("Posts").getData { error, snapShot in
             if let _ = error {
                 completion(.failure(.unKnownError))
             } else {
@@ -200,7 +318,7 @@ class FirebaseServiceImpl: FirebaseService {
 
     // ..MARK: delete data function
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
-        FIRReference.child("Posts").child(postID).removeValue { error, _ in
+        databaseRef.child("Posts").child(postID).removeValue { error, _ in
             if let err = error {
                 print(err.localizedDescription)
                 completion(.failure(.timeOut))

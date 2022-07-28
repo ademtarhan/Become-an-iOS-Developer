@@ -27,6 +27,7 @@ class LogInPresenterImpl: LogInPresenter {
             switch bool {
             case true:
                 break
+                //self.view?.navToHome()
             case false:
                 break
             }

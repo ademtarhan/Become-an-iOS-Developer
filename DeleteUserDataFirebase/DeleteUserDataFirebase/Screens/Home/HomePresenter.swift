@@ -11,6 +11,7 @@ protocol HomePresenter: AnyObject {
     func getData()
     func deleteData(data: DataModel, postID: String)
     func saveItem(text: String?)
+    func deleteAccount()
 }
 
 class HomePresenterImpl: HomePresenter {
@@ -21,6 +22,18 @@ class HomePresenterImpl: HomePresenter {
     init(view: HomeViewControllerImpl) {
         interactor = HomeInteractorImpl()
         self.view = view
+    }
+    
+    func deleteAccount() {
+        interactor?.deleteAccount(completion: { bool in
+            switch bool{
+            case true:
+                //self.view?.navToLog()  //..whose view is not in the window hierarchy.
+                print("interactor bool is true")
+            case false:
+                break
+            }
+        })
     }
     
     
