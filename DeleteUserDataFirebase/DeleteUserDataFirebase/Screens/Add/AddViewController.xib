@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddViewControllerImpl" customModule="DeleteUserDataFirebase" customModuleProvider="target">
+            <connections>
+                <outlet property="imagePost" destination="Okl-3J-dRY" id="fXO-H9-KZT"/>
+                <outlet property="textPost" destination="J4b-60-geH" id="PAs-rs-dDT"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="J4b-60-geH">
+                    <rect key="frame" x="20" y="314" width="374" height="200"/>
+                    <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="HbU-68-ExF"/>
+                    </constraints>
+                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                    <color key="textColor" systemColor="labelColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Okl-3J-dRY">
+                    <rect key="frame" x="20" y="44" width="374" height="250"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="250" id="D1l-SI-yi4"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vr1-jj-CDg">
+                    <rect key="frame" x="157" y="544" width="100" height="30"/>
+                    <color key="backgroundColor" red="0.72072328929999996" green="0.89411764709999997" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="0Zq-qx-4QW"/>
+                        <constraint firstAttribute="width" constant="100" id="xjL-8d-s7m"/>
+                    </constraints>
+                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Share"/>
+                    <connections>
+                        <action selector="buttonSharePost:" destination="-1" eventType="touchUpInside" id="WP2-7f-3Gy"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="J4b-60-geH" firstAttribute="top" secondItem="Okl-3J-dRY" secondAttribute="bottom" constant="20" id="97m-MO-Dr7"/>
+                <constraint firstItem="Okl-3J-dRY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="FcN-XN-znB"/>
+                <constraint firstItem="Vr1-jj-CDg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Jll-56-jxU"/>
+                <constraint firstItem="Okl-3J-dRY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="OFf-s4-Iun"/>
+                <constraint firstItem="J4b-60-geH" firstAttribute="top" secondItem="Okl-3J-dRY" secondAttribute="bottom" constant="20" id="TDf-xp-Zle"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Okl-3J-dRY" secondAttribute="trailing" constant="20" id="UFJ-hP-2bM"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="J4b-60-geH" secondAttribute="trailing" constant="20" id="Zce-7f-nQT"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Okl-3J-dRY" secondAttribute="trailing" constant="20" id="cKQ-kD-Qs2"/>
+                <constraint firstItem="Vr1-jj-CDg" firstAttribute="top" secondItem="J4b-60-geH" secondAttribute="bottom" constant="30" id="fBN-vZ-a8G"/>
+                <constraint firstItem="J4b-60-geH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="fdl-u6-g1E"/>
+                <constraint firstItem="Vr1-jj-CDg" firstAttribute="centerX" secondItem="J4b-60-geH" secondAttribute="centerX" id="ysM-aU-Kw9"/>
+                <constraint firstItem="Okl-3J-dRY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="zTL-aO-Kiy"/>
+            </constraints>
+            <point key="canvasLocation" x="137.68115942028987" y="73.660714285714278"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="placeholder" width="800" height="600"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

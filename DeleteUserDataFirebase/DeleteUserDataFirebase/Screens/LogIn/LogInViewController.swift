@@ -27,6 +27,9 @@ class LogInViewControllerImpl: UIViewController, LogInViewController {
     }
     
     
+    @IBAction func buttonLogIn(_ sender: Any) {
+        presenter?.logIn(with: textfieldEmail.text ?? "", password: textfieldPassword.text ?? "")
+    }
     
     @IBAction func buttonCreate(_ sender: Any) {
         let data = ["Email": textfieldEmail.text ?? "","Password":textfieldPassword.text ?? ""]
@@ -35,12 +38,6 @@ class LogInViewControllerImpl: UIViewController, LogInViewController {
         self.navToHome()
     }
     
-//    func data() {
-//        
-//        let data = ["Email": textfieldEmail.text ?? "","Password":textfieldPassword.text ?? ""]
-//    }
-//    
-//    
     
 }
 

@@ -21,7 +21,7 @@ class HomeInteractorImpl: HomeInteractor {
     }
     //..MARK: save item
     func saveItem(text: String, completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
-        let post = DataModel(postText: text, uID: service?.userid ?? "", postID: service?.postid ?? "",imageURL: service?.imageUrl ?? "")
+        let post = DataModel(postText: text, uID: service?.userid ?? "", postID: service?.postid ?? "",imageURL:  "")
         service?.saveData(data: post, completion: { result in
             switch result {
             case let .success(post):

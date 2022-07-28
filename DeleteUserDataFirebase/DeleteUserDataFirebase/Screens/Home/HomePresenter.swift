@@ -28,7 +28,6 @@ class HomePresenterImpl: HomePresenter {
     func saveItem(text: String?) {
         if text == "" {
             print("text is empty")
-            view?.showEmptyTextAlert()
         } else {
             interactor?.saveItem(text: text!, completion: { result in
                 switch result {

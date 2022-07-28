@@ -7,6 +7,8 @@
 
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
+import Photos
 import UIKit
 
 protocol HomeViewController: AnyObject {
@@ -18,8 +20,6 @@ protocol HomeViewController: AnyObject {
 class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var tableView: UITableView!
 
-    @IBOutlet var imageView: UIImageView!
-    @IBOutlet var textfieldInput: UITextField!
 
     var datas = [DataModel]()
     var presenter: HomePresenter?
@@ -27,7 +27,10 @@ class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePicke
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        navigationItem.title = "DEMO"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(goToAdd))
+        
         let nibCell = UINib(nibName: "TableViewCell", bundle: nil)
         tableView.register(nibCell, forCellReuseIdentifier: "cell")
         tableView.delegate = self
@@ -35,47 +38,14 @@ class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePicke
         presenter = HomePresenterImpl(view: self)
         presenter?.getData()
     }
-
-    func promptForAnswer() {
-        let ac = UIAlertController(title: "Enter Context", message: nil, preferredStyle: .alert)
-        ac.addTextField()
-
-        let submitAction = UIAlertAction(title: "Add", style: .default) { [unowned ac] _ in
-            let answer = ac.textFields![0]
-            // do something interesting with "answer" here
-        }
-
-        ac.addAction(submitAction)
-
-        present(ac, animated: true)
+    
+    @objc func goToAdd(){
+        let AddVC = AddViewControllerImpl(nibName: "AddViewController", bundle: nil)
+        
+        navigationController?.pushViewController(AddVC, animated: true)
     }
 
-
-    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-        dismiss(animated: true, completion: { () -> Void in
-
-        })
-
-        imageView.image = image
-    }
-
-    // ..MARK: add Item button
-    @IBAction func buttonAddItem(_ sender: Any) {
-        var imagePicker = UIImagePickerController()
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            print("Button capture")
-
-            imagePicker.delegate = self
-            imagePicker.sourceType = .savedPhotosAlbum
-            imagePicker.allowsEditing = false
-
-            present(imagePicker, animated: true, completion: nil)
-        }
-
-        // showAddItemAlert()
-        presenter?.saveItem(text: textfieldInput.text) // ..MARK: for data model - HomeEntity
-        textfieldInput.text = ""
-    }
+    
 
     // ..MARK: delete account button
     @IBAction func deleteAccount(_ sender: Any) {
@@ -84,6 +54,8 @@ class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePicke
         }
     }
 
+    
+
     // ..MARK: append data and reload table view
     func appendData(data: DataModel) {
         DispatchQueue.main.async {
@@ -91,19 +63,40 @@ class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePicke
             self.tableView.reloadData()
         }
     }
+
+    
+    func uploadImage() {
+        let storage = Storage.storage()
+        let storageReference = storage.reference()
+        let mediaFolder = storageReference.child("images")
+        let imageReference = mediaFolder.child("photo.jpg")
+
+//        imageReference.putData(data, metadata: nil) { _, error in
+//            if error != nil {
+//                print("Error\(error?.localizedDescription)" ?? "Error")
+//            }
+//        }
+    }
 }
 
-extension UIViewController {
+extension HomeViewControllerImpl {
+    
+
     func showAddItemAlert() {
+        var postText: String = ""
         let alert = UIAlertController(title: "Share Post", message: "", preferredStyle: UIAlertController.Style.alert)
-        alert.addTextField { field in
-            field.placeholder = "Post Text"
-        }
+
         alert.addAction(UIAlertAction(title: "Add Image", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true)
         }))
 
-        alert.addAction(UIAlertAction(title: "Share", style: UIAlertAction.Style.default, handler: nil))
+        alert.addTextField { field in
+            field.placeholder = "Post Text"
+            postText = field.text ?? ""
+        }
+        alert.addAction(UIAlertAction(title: "Share", style: UIAlertAction.Style.default, handler: { _ in
+            self.presenter?.saveItem(text: postText)
+        }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { [self] _ in
             alert.dismiss(animated: true, completion: nil)
         }))
@@ -127,14 +120,7 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    func showEmptyTextAlert() {
-        let alert = UIAlertController(title: "Empty Space", message: "Please fill in the blank", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true, completion: nil)
-    }
-
+    
     func showDeletedItemAlert() {
         let alert = UIAlertController(title: "Deleted", message: "Post is deleted", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
@@ -168,6 +154,14 @@ extension HomeViewControllerImpl: UITableViewDelegate, UITableViewDataSource {
             let data = datas.remove(at: indexPath.row)
             presenter?.deleteData(data: data, postID: data.postID)
             tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+        }
+    }
+}
+
+extension HomeViewControllerImpl {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage {
+            let filePath = "Images/photo.jpg"
         }
     }
 }
