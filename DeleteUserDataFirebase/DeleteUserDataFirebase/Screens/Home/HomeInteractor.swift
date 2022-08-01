@@ -11,35 +11,31 @@ protocol HomeInteractor: AnyObject {
     func getData(completion: @escaping (Result<DataModel, FirebaseError>) -> Void)
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void)
     func saveItem(text: String, completion: @escaping (Result<DataModel, FirebaseError>) -> Void)
-    func deleteAccount(completion: @escaping (Bool) -> Void)
+    func deleteAccount(completion: @escaping (Result<Any,FirebaseError>) -> Void)
 }
 
 class HomeInteractorImpl: HomeInteractor {
-    
     var service: FirebaseService?
 
     init() {
         service = FirebaseServiceImpl()
     }
-    
-    func deleteAccount(completion: @escaping (Bool) -> Void){
-        
-        service?.deleteAccount(completion: { bool in
-            switch bool{
-            case true:
-                completion(true)
-            case false:
-                completion(false)
+
+    func deleteAccount(completion: @escaping (Result<Any,FirebaseError>) -> Void) {
+        service?.deleteAccount(completion: { result in
+            switch result{
+            case .success:
+                completion(.success(true))
+            case .failure:
+                completion(.failure(.deleteAccountError))
             }
         })
         
     }
-    
-    
-    
-    //..MARK: save item
+
+    // ..MARK: save item
     func saveItem(text: String, completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
-        let post = DataModel(postText: text, uID: service?.userid ?? "", postID: service?.postid ?? "",imageURL:  "")
+        let post = DataModel(postText: text, uID: service?.userid ?? "", postID: service?.postid ?? "", imageURL: "")
         service?.saveData(data: post, completion: { result in
             switch result {
             case let .success(post):
@@ -49,7 +45,8 @@ class HomeInteractorImpl: HomeInteractor {
             }
         })
     }
-    //..MARK: get data
+
+    // ..MARK: get data
     func getData(completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {
         service?.getData(completion: { result in
             switch result {
@@ -61,7 +58,7 @@ class HomeInteractorImpl: HomeInteractor {
         })
     }
 
-    //..MARK: delete data
+    // ..MARK: delete data
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
         service?.deleteData(with: data, postID: postID, completion: { result in
             switch result {

@@ -23,7 +23,7 @@ class LogInPresenterImpl: LogInPresenter {
     }
     
     func logIn(with email: String,password: String) -> Void{
-        interactor?.signIn(with: email, password: password, completion: { bool in
+        interactor?.logIn(with: email, password: password, completion: { bool in
             switch bool {
             case true:
                 break
@@ -45,7 +45,7 @@ class LogInPresenterImpl: LogInPresenter {
         interactor?.createAccount(withEmail: email, password: password, data: data, { result in
             switch result {
             case .success:
-                self.view?.navToHome()
+                self.view?.navigateToHome()
             case .failure:
                 break
             }

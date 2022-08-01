@@ -15,7 +15,7 @@ protocol DeleteAccountViewController: AnyObject{
 
 
 
-class DeleteAccountViewControllerImpl: UIViewController {
+class DeleteAccountViewControllerImpl: UIViewController, DeleteAccountViewController {
 
     @IBOutlet weak var textfieldEmail: UITextField!
     

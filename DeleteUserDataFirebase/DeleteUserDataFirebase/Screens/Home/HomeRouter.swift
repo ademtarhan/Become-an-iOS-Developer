@@ -12,4 +12,8 @@ class HomeRouter{
     var home: HomeViewController{
         HomeViewControllerImpl(nibName: "HomeViewController", bundle: nil)
     }
+    
+    var router: DeleteAccountViewController{
+        DeleteAccountViewControllerImpl(nibName: "DeleteAccountViewController", bundle: nil)
+    }
 }

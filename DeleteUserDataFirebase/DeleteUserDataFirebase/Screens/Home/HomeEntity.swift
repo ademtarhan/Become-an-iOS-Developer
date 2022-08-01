@@ -50,3 +50,19 @@ struct DataModel {
         self.imageURL = snapShot["imageURL"] as! String
     }
 }
+
+
+struct DataDeletionAlert{
+    let title: String?
+    let message: String?
+
+    init(result: Bool) {
+        if result {
+            title = "Deleted"
+            message = "Data and account is deleted"
+        } else {
+            title = "Error"
+            message = "Data and account is not deleted"
+        }
+    }
+}

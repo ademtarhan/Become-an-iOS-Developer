@@ -8,36 +8,38 @@
 import UIKit
 
 protocol LogInViewController: AnyObject {
-    func navToHome()
+    func navigateToHome()
 }
 
 class LogInViewControllerImpl: UIViewController, LogInViewController {
     var presenter: LogInPresenter?
 
-    @IBOutlet var textfieldEmail: UITextField!
+    @IBOutlet var emailTextField: UITextField!
 
-    @IBOutlet var textfieldPassword: UITextField!
+    @IBOutlet var textfieldPassword: UITextField! // TODO: Rename
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         presenter = LogInPresenterImpl()
     }
 
-    @IBAction func buttonLogIn(_ sender: Any) {
-        presenter?.logIn(with: textfieldEmail.text ?? "", password: textfieldPassword.text ?? "")
-        navToHome()
+    @IBAction func didTapLogIn(_ sender: Any) {
+        presenter?.logIn(with: emailTextField.text ?? "", password: textfieldPassword.text ?? "")
+        navigateToHome()
     }
 
-    @IBAction func buttonCreate(_ sender: Any) {
-        let data = ["Email": textfieldEmail.text ?? "", "Password": textfieldPassword.text ?? ""]
+    @IBAction func didTapCreate(_ sender: Any) {
+        let data = ["Email": emailTextField.text ?? "", "Password": textfieldPassword.text ?? ""]
 
-        presenter?.createAccount(withEmail: textfieldEmail.text, password: textfieldPassword.text, data: data)
-        navToHome()
+        presenter?.createAccount(withEmail: emailTextField.text, password: textfieldPassword.text, data: data)
     }
 }
 
+// MARK: Navigation
 extension UIViewController {
-    func navToHome() {
+    func navigateToHome() {
         DispatchQueue.main.async {
             let homeVC = HomeViewControllerImpl(nibName: "HomeViewController", bundle: nil)
             homeVC.modalPresentationStyle = .fullScreen

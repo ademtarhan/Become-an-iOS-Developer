@@ -28,9 +28,10 @@ protocol FirebaseService {
     func logIn(with email: String, password: String, completion: @escaping (Bool) -> Void)
 
     // ..MARK: firebase processes funcs
-    func deleteAccount(completion: @escaping (Bool) -> Void)
-    func deleteAquariums(with aquariumID: String, completion: @escaping (Bool) -> Void)
-    func deleteDevices(with deviceID: String, completion: @escaping (Bool) -> Void)
+    func deleteAccount(completion: @escaping (Result<Any, FirebaseError>) -> Void)
+    func deleteAquariums(with aquariumID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void)
+    func deleteDevices(with deviceID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void)
+    func deleteAuth(completion: @escaping (Result<Any, FirebaseError>) -> Void)
 }
 
 class FirebaseServiceImpl: FirebaseService {
@@ -39,65 +40,56 @@ class FirebaseServiceImpl: FirebaseService {
     // ..MARK: Firebase delete account and data processes
 
     // ..MARK: Delete Account Func
-    func deleteAccount(completion: @escaping (Bool) -> Void) {
+    func deleteAccount(completion: @escaping (Result<Any, FirebaseError>) -> Void) {
         // ..TODO: Delete Account
-        guard let userid = Auth.auth().currentUser?.uid else { return }
 
+        let currentUser = Auth.auth().currentUser
+        guard let userID = currentUser?.uid else { return }
         var aquariumsID = [String]()
-        let userRef = databaseRef.child("Users").child(userid)
-        let aquariumsRef = databaseRef.child("Users").child(userid).child("aquariums").ref
+        let userRef = databaseRef.child("Users").child(userID)
+
+        let aquariumsRef = databaseRef.child("Users").child(userID).child("aquariums").ref
+
+        print(aquariumsRef)
 
         aquariumsRef.getData { error, data in
             if let error = error {
                 print(error.localizedDescription)
+                completion(.failure(.timeOut))
             } else {
                 if data.exists() {
                     guard let snap = data.value as? [String: Any] else { return }
-
                     for (id, d) in snap {
-                        guard let dict = d as? [String: Any] else {
-                            return
-                        }
-                        aquariumsID.append(id)
-                        print("id:\(aquariumsID)")
-                        self.deleteAquariums(with: id) { bool in
-                            switch bool {
-                            case true:
-                                print("success")
+                        // guard let _ = d as? [String: Any] else { return }
+                        print("id-66:\(id)")
 
-                                userRef.removeValue { error, _ in
-                                    if let error = error{
-                                        completion(false)
-                                    }else{
-                                        completion(true)
+                        self.deleteAquariums(with: id) { result in
+                            switch result {
+                            case .success:
+                                // ..MARK: deleted aquarium
+                                self.removeData(ref: userRef) { result in
+                                    switch result {
+                                    case .success:
+                                        completion(.success(true))
+                                    case .failure:
+                                        completion(.failure(.deleteAccountError))
                                     }
                                 }
-
-                            case false:
-                                print("failure")
-                                completion(false)
+                            case .failure:
+                                // ..MARK: not deleted aquarium
+                                completion(.failure(.deleteAquariumError))
                             }
                         }
                     }
                 }
             }
         }
-
-        for aquariumID in aquariumsID {
-            print(aquariumID)
-            deleteAquariums(with: aquariumID) { bool in
-                switch bool {
-                case true:
-                    print("success")
-                case false:
-                    print("failure")
-                }
-            }
-        }
     }
 
+    // static let auth = Auth.auth()
+
     // ..MARK: Delete Aquariums Func
-    func deleteAquariums(with aquariumID: String, completion: @escaping (Bool) -> Void) {
+    func deleteAquariums(with aquariumID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void) {
         // ..TODO: Delete Aquariums
 
         var devicesID = [String]()
@@ -111,64 +103,70 @@ class FirebaseServiceImpl: FirebaseService {
                 if data.exists() {
                     guard let snap = data.value as? [String: Any] else { return }
                     for (id, d) in snap {
-                        guard let dict = d as? [String: Any] else {
-                            return
-                        }
-                        devicesID.append(id)
-                        print("id:\(devicesID)")
-                        self.deleteDevices(with: id) { bool in
-                          
-                            switch bool {
-                            case true:
-                                print("success")
+                        print("id-129:\(id)")
 
-                                aquariumsRef.removeValue { error, _ in
-                                    if let error = error{
-                                        completion(false)
-                                    }else{
-                                        completion(true)
+                        self.deleteDevices(with: id) { result in
+                            switch result {
+                            case .success:
+                                // ..MARK: deleted device
+
+                                self.removeData(ref: aquariumsRef) { result in
+                                    switch result {
+                                    case .success:
+                                        completion(.success(true))
+                                    case .failure:
+                                        completion(.failure(.deleteAquariumError))
                                     }
                                 }
 
-                            case false:
-                                completion(false)
+                            case .failure:
+                                // ..MARK: not deleted device
+                                completion(.failure(.deleteDeviceError))
                             }
                         }
                     }
                 }
             }
         }
-
-        for deviceID in devicesID {
-            print(deviceID)
-            deleteDevices(with: deviceID) { bool in
-                switch bool {
-                case true:
-                    print("success")
-                case false:
-                    print("failure")
-                }
-            }
-        }
     }
 
-    // ..MARK: Delete Devices Func
+    // ..MARK: Deleted Devices Func
 
-    func deleteDevices(with devicesID: String, completion: @escaping (Bool) -> Void) {
+    func deleteDevices(with devicesID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void) {
         // ..TODO: Delete Devices
 
         let deviceRef = databaseRef.child("devices").child(devicesID).ref
 
         print(deviceRef)
 
-        deviceRef.removeValue { error, _ in
-            if let error = error{
-                completion(false)
-            }else{
-                completion(true)
+        removeData(ref: deviceRef) { result in
+            switch result {
+            case .success:
+                completion(.success(true))
+            case .failure:
+                completion(.failure(.deleteDeviceError))
             }
-            
         }
+    }
+
+    func deleteAuth(completion: @escaping (Result<Any, FirebaseError>) -> Void) {
+        Auth.auth().currentUser?.delete(completion: { error in
+            if let _ = error {
+                // ..MARK: not deleted auth
+                print(error?.localizedDescription)
+                completion(.failure(.timeOut))
+            } else {
+                // ..MARK: deleted auth
+                self.deleteAccount { result in
+                    switch result {
+                    case .success:
+                        completion(.success(true))
+                    case .failure:
+                        completion(.failure(.deleteAccountError))
+                    }
+                }
+            }
+        })
     }
 
     func logIn(with email: String, password: String, completion: @escaping (Bool) -> Void) {
@@ -245,11 +243,14 @@ class FirebaseServiceImpl: FirebaseService {
 
     // ..MARK: creat account function
     func createAccount(withEmail email: String, password: String, data: [String: String], _ completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
+        guard let currenUserID = Auth.auth().currentUser?.uid else { return }
+
         Auth.auth().createUser(withEmail: email, password: password) { _, error in
+
             if let error = error {
                 completion(.failure(self.getAuthError(errCode: error._code)))
             } else {
-                self.databaseRef.child("Users").setValue(data)
+                self.databaseRef.child("Users").child("\(currenUserID)").setValue(data)
 
                 completion(.success(true))
             }
@@ -318,10 +319,22 @@ class FirebaseServiceImpl: FirebaseService {
 
     // ..MARK: delete data function
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
-        databaseRef.child("Posts").child(postID).removeValue { error, _ in
+        var ref = databaseRef.child("Posts").child(postID)
+        removeData(ref: ref) { result in
+            switch result {
+            case .success:
+                completion(.success(true))
+            case .failure:
+                completion(.failure(.removeValueError))
+            }
+        }
+    }
+
+    func removeData(ref: DatabaseReference, completion: @escaping (Result<Any, Error>) -> Void) {
+        ref.removeValue { error, _ in
             if let err = error {
                 print(err.localizedDescription)
-                completion(.failure(.timeOut))
+                completion(.failure(err))
             } else {
                 completion(.success(true))
             }

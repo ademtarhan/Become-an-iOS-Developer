@@ -20,17 +20,16 @@ protocol HomeViewController: AnyObject {
 class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet var tableView: UITableView!
 
-
     var datas = [DataModel]()
     var presenter: HomePresenter?
     var dataCount: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationItem.title = "DEMO"
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Share", style: .plain, target: self, action: #selector(goToAdd))
-        
+
         let nibCell = UINib(nibName: "TableViewCell", bundle: nil)
         tableView.register(nibCell, forCellReuseIdentifier: "cell")
         tableView.delegate = self
@@ -38,26 +37,20 @@ class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePicke
         presenter = HomePresenterImpl(view: self)
         presenter?.getData()
     }
-    
-    @objc func goToAdd(){
+
+    @objc func goToAdd() {
         let AddVC = AddViewControllerImpl(nibName: "AddViewController", bundle: nil)
-        
+
         navigationController?.pushViewController(AddVC, animated: true)
     }
-
-    
 
     // ..MARK: delete account button
     @IBAction func deleteAccount(_ sender: Any) {
         DispatchQueue.main.async {
             self.showDeleteAccountAlert()
         }
+        
     }
-
-    func delete(){
-        presenter?.deleteAccount()
-    }
-    
 
     // ..MARK: append data and reload table view
     func appendData(data: DataModel) {
@@ -67,19 +60,15 @@ class HomeViewControllerImpl: UIViewController, HomeViewController, UIImagePicke
         }
     }
 
-    
     func uploadImage() {
         let storage = Storage.storage()
         let storageReference = storage.reference()
         let mediaFolder = storageReference.child("images")
         let imageReference = mediaFolder.child("photo.jpg")
-
     }
 }
 
 extension HomeViewControllerImpl {
-    
-
     func showAddItemAlert() {
         var postText: String = ""
         let alert = UIAlertController(title: "Share Post", message: "", preferredStyle: UIAlertController.Style.alert)
@@ -105,10 +94,10 @@ extension HomeViewControllerImpl {
         let alert = UIAlertController(title: "Delete Account", message: "Are you sure you want to delete your account?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true, completion: nil)
-            self.delete()
+            self.presenter?.deleteAccount()
         }))
         alert.addAction(UIAlertAction(title: "CANCEL", style: UIAlertAction.Style.default, handler: { _ in
-            alert.dismiss(animated: true,completion: nil)
+            alert.dismiss(animated: true, completion: nil)
         }))
         present(alert, animated: true, completion: nil)
     }
@@ -121,18 +110,20 @@ extension HomeViewControllerImpl {
         present(alert, animated: true, completion: nil)
     }
 
-    
-    func showDeletedItemAlert() {
-        let alert = UIAlertController(title: "Deleted", message: "Post is deleted", preferredStyle: UIAlertController.Style.alert)
+    func showAlert(title: String,message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true, completion: nil)
+            self.navToLog()
         }))
         present(alert, animated: true, completion: nil)
+        
     }
 
     func navToLog() {
-        let logInVC = LogInViewControllerImpl(nibName: "DeleteAccountViewController", bundle: nil)
+        let logInVC = LogInViewControllerImpl(nibName: "LogInViewController", bundle: nil)
         logInVC.modalPresentationStyle = .fullScreen
+        logInVC.modalTransitionStyle = .crossDissolve
         present(logInVC, animated: true, completion: nil)
     }
 }

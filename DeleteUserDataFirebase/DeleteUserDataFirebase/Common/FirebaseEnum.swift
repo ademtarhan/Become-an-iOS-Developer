@@ -15,4 +15,8 @@ enum FirebaseError: Error {
     case documentsError
     case uploadError
     case saveError
+    case deleteDeviceError
+    case deleteAquariumError
+    case deleteAccountError
+    case removeValueError
 }

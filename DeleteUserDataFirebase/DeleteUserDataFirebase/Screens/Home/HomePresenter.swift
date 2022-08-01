@@ -23,21 +23,18 @@ class HomePresenterImpl: HomePresenter {
         interactor = HomeInteractorImpl()
         self.view = view
     }
-    
+
     func deleteAccount() {
-        interactor?.deleteAccount(completion: { bool in
-            switch bool{
-            case true:
-                //self.view?.navToLog()  //..whose view is not in the window hierarchy.
-                print("interactor bool is true")
-            case false:
-                break
+        interactor?.deleteAccount(completion: { result in
+            switch result {
+            case .success:
+                DataDeletionAlert(result: true)
+            case .failure:
+                DataDeletionAlert(result: false)
             }
         })
     }
-    
-    
-    // ..MARK: item text control
+    // MARK: - item text control
     func saveItem(text: String?) {
         if text == "" {
             print("text is empty")
@@ -53,8 +50,7 @@ class HomePresenterImpl: HomePresenter {
         }
     }
 
-   
-    //..MARK: get data
+    // ..MARK: get data
     func getData() {
         interactor?.getData(completion: { result in
             switch result {
@@ -66,13 +62,13 @@ class HomePresenterImpl: HomePresenter {
         })
     }
 
-    //..MARK: delete data
+    // ..MARK: delete data
     func deleteData(data: DataModel, postID: String) {
         // ..
         interactor?.deleteData(with: data, postID: postID, completion: { result in
             switch result {
             case .success:
-                
+
                 print("success")
             case let .failure(error):
                 print(error)
