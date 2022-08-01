@@ -17,7 +17,7 @@
 		9A72051A2888365900028BAE /* LogInPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7205192888365900028BAE /* LogInPresenter.swift */; };
 		9A72051C2888366300028BAE /* LogInRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A72051B2888366300028BAE /* LogInRouter.swift */; };
 		9A72051E2888376A00028BAE /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A72051D2888376A00028BAE /* FirebaseService.swift */; };
-		9A720520288837CE00028BAE /* FirebaseEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A72051F288837CE00028BAE /* FirebaseEnum.swift */; };
+		9A720520288837CE00028BAE /* FirebaseEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A72051F288837CE00028BAE /* FirebaseEntity.swift */; };
 		9A72052328883A6400028BAE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A72052128883A6400028BAE /* HomeViewController.swift */; };
 		9A72052428883A6400028BAE /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A72052228883A6400028BAE /* HomeViewController.xib */; };
 		9A7205282888478600028BAE /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A7205272888478600028BAE /* HomeRouter.swift */; };
@@ -51,7 +51,7 @@
 		9A7205192888365900028BAE /* LogInPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInPresenter.swift; sourceTree = "<group>"; };
 		9A72051B2888366300028BAE /* LogInRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInRouter.swift; sourceTree = "<group>"; };
 		9A72051D2888376A00028BAE /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
-		9A72051F288837CE00028BAE /* FirebaseEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEnum.swift; sourceTree = "<group>"; };
+		9A72051F288837CE00028BAE /* FirebaseEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseEntity.swift; sourceTree = "<group>"; };
 		9A72052128883A6400028BAE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		9A72052228883A6400028BAE /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		9A7205272888478600028BAE /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
@@ -166,7 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				9A72051D2888376A00028BAE /* FirebaseService.swift */,
-				9A72051F288837CE00028BAE /* FirebaseEnum.swift */,
+				9A72051F288837CE00028BAE /* FirebaseEntity.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -346,7 +346,7 @@
 				9A72051E2888376A00028BAE /* FirebaseService.swift in Sources */,
 				9AC9BF85288925E7001DCED4 /* LogInEntity.swift in Sources */,
 				9AC9BF902889391A001DCED4 /* HomeEntity.swift in Sources */,
-				9A720520288837CE00028BAE /* FirebaseEnum.swift in Sources */,
+				9A720520288837CE00028BAE /* FirebaseEntity.swift in Sources */,
 				9A7205282888478600028BAE /* HomeRouter.swift in Sources */,
 				9A7205182888364E00028BAE /* LogInInteractor.swift in Sources */,
 			);

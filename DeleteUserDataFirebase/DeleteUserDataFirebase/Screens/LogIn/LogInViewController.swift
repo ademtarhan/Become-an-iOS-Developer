@@ -16,7 +16,7 @@ class LogInViewControllerImpl: UIViewController, LogInViewController {
 
     @IBOutlet var emailTextField: UITextField!
 
-    @IBOutlet var textfieldPassword: UITextField! // TODO: Rename
+    @IBOutlet var passwordTextField: UITextField! // TODO: Rename
     
     
     override func viewDidLoad() {
@@ -26,14 +26,14 @@ class LogInViewControllerImpl: UIViewController, LogInViewController {
     }
 
     @IBAction func didTapLogIn(_ sender: Any) {
-        presenter?.logIn(with: emailTextField.text ?? "", password: textfieldPassword.text ?? "")
+        presenter?.logIn(with: emailTextField.text ?? "", password: passwordTextField.text ?? "")
         navigateToHome()
     }
 
     @IBAction func didTapCreate(_ sender: Any) {
-        let data = ["Email": emailTextField.text ?? "", "Password": textfieldPassword.text ?? ""]
+        let data = ["Email": emailTextField.text ?? "", "Password": passwordTextField.text ?? ""]
 
-        presenter?.createAccount(withEmail: emailTextField.text, password: textfieldPassword.text, data: data)
+        presenter?.createAccount(withEmail: emailTextField.text, password: passwordTextField.text, data: data)
     }
 }
 

@@ -45,12 +45,13 @@ class FirebaseServiceImpl: FirebaseService {
 
         let currentUser = Auth.auth().currentUser
         guard let userID = currentUser?.uid else { return }
-        var aquariumsID = [String]()
+        // var aquariumsID = [String]()
         let userRef = databaseRef.child("Users").child(userID)
 
         let aquariumsRef = databaseRef.child("Users").child(userID).child("aquariums").ref
-
-        print(aquariumsRef)
+        let group = DispatchGroup()
+        var stack = Stack()
+        var aquariumsID = [String]()
 
         aquariumsRef.getData { error, data in
             if let error = error {
@@ -59,34 +60,53 @@ class FirebaseServiceImpl: FirebaseService {
             } else {
                 if data.exists() {
                     guard let snap = data.value as? [String: Any] else { return }
-                    for (id, d) in snap {
-                        // guard let _ = d as? [String: Any] else { return }
-                        print("id-66:\(id)")
+                    for (id, _) in snap {
+                        print("aquarium id:\(id)")
+                        aquariumsID.append(id)
+                        stack.push(id)
 
-                        self.deleteAquariums(with: id) { result in
-                            switch result {
-                            case .success:
-                                // ..MARK: deleted aquarium
-                                self.removeData(ref: userRef) { result in
-                                    switch result {
-                                    case .success:
-                                        completion(.success(true))
-                                    case .failure:
-                                        completion(.failure(.deleteAccountError))
-                                    }
-                                }
-                            case .failure:
-                                // ..MARK: not deleted aquarium
-                                completion(.failure(.deleteAquariumError))
-                            }
+                        /*
+                           self.deleteAquariums(with: id) { result in
+                              switch result {
+                              case .success:
+                                  // ..MARK: deleted aquarium
+
+                                  self.removeData(ref: userRef) { result in
+                                      switch result {
+                                      case .success:
+                                          self.deleteAuth { result in
+                                              switch result{
+                                              case .success:
+                                                  completion(.success(true))
+                                              case .failure:
+                                                  completion(.failure(.deleteAccountError))
+                                              }
+                                          }
+                                      case .failure:
+                                          completion(.failure(.deleteAccountError))
+                                      }
+                                  }
+                              case .failure:
+                                  // ..MARK: not deleted aquarium
+                                  completion(.failure(.deleteAquariumError))
+                              }
+                          }
+                         */
+                    }
+                    print(stack.pop())
+                    self.deleteAquariums(with: stack.pop()) { result in
+                        switch result {
+                        case .success:
+                            print("success-deleted \(stack.pop())")
+                            completion(.success(true))
+                        case .failure:
+                            completion(.failure(.deleteAquariumError))
                         }
                     }
                 }
             }
         }
     }
-
-    // static let auth = Auth.auth()
 
     // ..MARK: Delete Aquariums Func
     func deleteAquariums(with aquariumID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void) {
@@ -95,21 +115,23 @@ class FirebaseServiceImpl: FirebaseService {
         var devicesID = [String]()
         let aquariumsRef = databaseRef.child("aquariums").child(aquariumID)
         let deviceRef = databaseRef.child("aquariums").child(aquariumID).child("devices").ref
+        let group = DispatchGroup()
 
         deviceRef.getData { error, data in
             if let error = error {
                 print(error.localizedDescription)
             } else {
+                print(data)
                 if data.exists() {
                     guard let snap = data.value as? [String: Any] else { return }
-                    for (id, d) in snap {
-                        print("id-129:\(id)")
+                    for (id, _) in snap {
+                        print("device id :\(id)")
+                        devicesID.append(id)
 
                         self.deleteDevices(with: id) { result in
                             switch result {
                             case .success:
                                 // ..MARK: deleted device
-
                                 self.removeData(ref: aquariumsRef) { result in
                                     switch result {
                                     case .success:
@@ -125,6 +147,8 @@ class FirebaseServiceImpl: FirebaseService {
                             }
                         }
                     }
+                }else{
+                    print("not exists")
                 }
             }
         }
@@ -136,8 +160,6 @@ class FirebaseServiceImpl: FirebaseService {
         // ..TODO: Delete Devices
 
         let deviceRef = databaseRef.child("devices").child(devicesID).ref
-
-        print(deviceRef)
 
         removeData(ref: deviceRef) { result in
             switch result {
@@ -151,20 +173,21 @@ class FirebaseServiceImpl: FirebaseService {
 
     func deleteAuth(completion: @escaping (Result<Any, FirebaseError>) -> Void) {
         Auth.auth().currentUser?.delete(completion: { error in
-            if let _ = error {
+            if let err = error {
                 // ..MARK: not deleted auth
-                print(error?.localizedDescription)
+                print(err.localizedDescription)
                 completion(.failure(.timeOut))
             } else {
                 // ..MARK: deleted auth
-                self.deleteAccount { result in
-                    switch result {
-                    case .success:
-                        completion(.success(true))
-                    case .failure:
-                        completion(.failure(.deleteAccountError))
-                    }
-                }
+                completion(.success(true))
+//                self.deleteAccount { result in
+//                    switch result {
+//                    case .success:
+//                        completion(.success(true))
+//                    case .failure:
+//                        completion(.failure(.deleteAccountError))
+//                    }
+//                }
             }
         })
     }
@@ -194,17 +217,14 @@ class FirebaseServiceImpl: FirebaseService {
     }
 
     func downUrl(postID: String, completion: @escaping (Result<URL, FirebaseError>) -> Void) {
-        print(postID)
         let imageReference = Storage.storage().reference().child("images").child("\(postID)")
-        let ref = Storage.storage().reference().child("images/\(postID)")
-        print("----\(ref)")
+        _ = Storage.storage().reference().child("images/\(postID)")
 
         imageReference.downloadURL { url, error in
             if let err = error {
                 print("Error--\(err.localizedDescription)")
             } else {
-                let imageUrl = url?.absoluteString
-                print("image url: \(imageUrl)")
+                _ = url?.absoluteString
                 completion(.success(url!))
             }
         }
@@ -303,7 +323,7 @@ class FirebaseServiceImpl: FirebaseService {
                     guard let data = snapShot.value as? [String: Any] else {
                         return
                     }
-                    for (id, d) in data {
+                    for (_, d) in data {
                         guard let dict = d as? [String: Any] else {
                             return
                         }
@@ -319,7 +339,7 @@ class FirebaseServiceImpl: FirebaseService {
 
     // ..MARK: delete data function
     func deleteData(with data: DataModel, postID: String, completion: @escaping (Result<Bool, FirebaseError>) -> Void) {
-        var ref = databaseRef.child("Posts").child(postID)
+        let ref = databaseRef.child("Posts").child(postID)
         removeData(ref: ref) { result in
             switch result {
             case .success:
