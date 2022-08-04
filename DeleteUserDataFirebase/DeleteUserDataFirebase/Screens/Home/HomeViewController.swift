@@ -114,13 +114,24 @@ extension HomeViewControllerImpl {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
             alert.dismiss(animated: true, completion: nil)
-            self.navToLog()
+            self.navigationToLogIn()
         }))
         present(alert, animated: true, completion: nil)
         
     }
+    func displayAlert(alert: DataDeletionAlert) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: alert.title, message: alert.message, preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: { _ in
+                alert.dismiss(animated: true, completion: nil)
+                self.navigationToLogIn()
+            }))
+            self.present(alert, animated: true,completion: nil)
+        }
+    }
 
-    func navToLog() {
+
+    func navigationToLogIn() {
         let logInVC = LogInViewControllerImpl(nibName: "LogInViewController", bundle: nil)
         logInVC.modalPresentationStyle = .fullScreen
         logInVC.modalTransitionStyle = .crossDissolve

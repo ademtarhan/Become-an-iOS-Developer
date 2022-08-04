@@ -28,13 +28,17 @@ class HomePresenterImpl: HomePresenter {
         interactor?.deleteAccount(completion: { result in
             switch result {
             case .success:
-                DataDeletionAlert(result: true)
+                    let alert = DataDeletionAlert(result: true)
+                    self.view?.displayAlert(alert: alert)
             case .failure:
-                DataDeletionAlert(result: false)
+                    let alert = DataDeletionAlert(result: false)
+                    self.view?.displayAlert(alert: alert)
             }
         })
     }
+
     // MARK: - item text control
+
     func saveItem(text: String?) {
         if text == "" {
             print("text is empty")

@@ -16,21 +16,23 @@ protocol HomeInteractor: AnyObject {
 
 class HomeInteractorImpl: HomeInteractor {
     var service: FirebaseService?
+    var deleteFirebaseService: FirebaseDeleteService?
 
     init() {
         service = FirebaseServiceImpl()
+        deleteFirebaseService = FirbaseDeleteServiceImpl()
     }
 
     func deleteAccount(completion: @escaping (Result<Any, FirebaseError>) -> Void) {
-        service?.deleteAccount(completion: { result in
+        deleteFirebaseService?.delete({ result in
             switch result {
             case .success:
                 completion(.success(true))
             case .failure:
+                print("failure-interactor")
                 completion(.failure(.deleteAccountError))
             }
-        })
-    }
+        })    }
 
     // ..MARK: save item
     func saveItem(text: String, completion: @escaping (Result<DataModel, FirebaseError>) -> Void) {

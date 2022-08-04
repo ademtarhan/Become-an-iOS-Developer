@@ -10,5 +10,6 @@ target 'DeleteUserDataFirebase' do
    pod 'FirebaseFirestore'
    pod 'FirebaseDatabase'
    pod 'FirebaseStorage'
+   pod 'Alamofire'
 
 end

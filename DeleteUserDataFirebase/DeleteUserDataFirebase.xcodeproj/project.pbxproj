@@ -33,6 +33,7 @@
 		9AC9BF8C28892F5B001DCED4 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF8B28892F5B001DCED4 /* HomePresenter.swift */; };
 		9AC9BF902889391A001DCED4 /* HomeEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF8F2889391A001DCED4 /* HomeEntity.swift */; };
 		9AC9BF9228894212001DCED4 /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9BF9128894212001DCED4 /* HomeInteractor.swift */; };
+		9AEB4A482899065100A212A1 /* FirebaseDeleteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEB4A472899065100A212A1 /* FirebaseDeleteService.swift */; };
 		9AEB9F8C288E940D00150303 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AEB9F8A288E940D00150303 /* TableViewCell.swift */; };
 		9AEB9F8D288E940D00150303 /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AEB9F8B288E940D00150303 /* TableViewCell.xib */; };
 /* End PBXBuildFile section */
@@ -67,6 +68,7 @@
 		9AC9BF8B28892F5B001DCED4 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		9AC9BF8F2889391A001DCED4 /* HomeEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEntity.swift; sourceTree = "<group>"; };
 		9AC9BF9128894212001DCED4 /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		9AEB4A472899065100A212A1 /* FirebaseDeleteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseDeleteService.swift; sourceTree = "<group>"; };
 		9AEB9F8A288E940D00150303 /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		9AEB9F8B288E940D00150303 /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
 		F48A26AFC0D6AD7134A2C8F1 /* Pods_DeleteUserDataFirebase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DeleteUserDataFirebase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +169,7 @@
 			children = (
 				9A72051D2888376A00028BAE /* FirebaseService.swift */,
 				9A72051F288837CE00028BAE /* FirebaseEntity.swift */,
+				9AEB4A472899065100A212A1 /* FirebaseDeleteService.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				9A720520288837CE00028BAE /* FirebaseEntity.swift in Sources */,
 				9A7205282888478600028BAE /* HomeRouter.swift in Sources */,
 				9A7205182888364E00028BAE /* LogInInteractor.swift in Sources */,
+				9AEB4A482899065100A212A1 /* FirebaseDeleteService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

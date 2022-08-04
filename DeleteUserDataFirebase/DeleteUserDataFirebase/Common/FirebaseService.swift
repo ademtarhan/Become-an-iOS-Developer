@@ -28,10 +28,10 @@ protocol FirebaseService {
     func logIn(with email: String, password: String, completion: @escaping (Bool) -> Void)
 
     // ..MARK: firebase processes funcs
-    func deleteAccount(completion: @escaping (Result<Any, FirebaseError>) -> Void)
-    func deleteAquariums(with aquariumID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void)
-    func deleteDevices(with deviceID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void)
-    func deleteAuth(completion: @escaping (Result<Any, FirebaseError>) -> Void)
+    func deleteAccount() async throws
+//    func deleteAquariums(with aquariumID: [String])
+//    func deleteDevices(with deviceID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void)
+//    func deleteAuth(completion: @escaping (Result<Any, FirebaseError>) -> Void)
 }
 
 class FirebaseServiceImpl: FirebaseService {
@@ -40,134 +40,84 @@ class FirebaseServiceImpl: FirebaseService {
     // ..MARK: Firebase delete account and data processes
 
     // ..MARK: Delete Account Func
-    func deleteAccount(completion: @escaping (Result<Any, FirebaseError>) -> Void) {
+    func deleteAccount() async throws {
         // ..TODO: Delete Account
 
         let currentUser = Auth.auth().currentUser
-        guard let userID = currentUser?.uid else { return }
+        let userID = currentUser?.uid
         // var aquariumsID = [String]()
-        let userRef = databaseRef.child("Users").child(userID)
+        let userRef = databaseRef.child("Users").child(userID!).ref
 
-        let aquariumsRef = databaseRef.child("Users").child(userID).child("aquariums").ref
-        let group = DispatchGroup()
-        var stack = Stack()
+        let aquariums = try await fetchAquariums(with: userID!)
+        print("aquariums-53: \(aquariums)")
+        try await deleteAquariums(with: aquariums)
+    }
+
+    // MARK: fetch aquariums
+
+    func fetchAquariums(with userID: String) async throws -> [String] {
         var aquariumsID = [String]()
+        let ref = databaseRef.child("Users").child(userID).child("aquariums").ref
 
-        aquariumsRef.getData { error, data in
-            if let error = error {
-                print(error.localizedDescription)
-                completion(.failure(.timeOut))
+        ref.getData { error, data in
+            if let err = error {
+                print(err.localizedDescription)
             } else {
                 if data.exists() {
                     guard let snap = data.value as? [String: Any] else { return }
                     for (id, _) in snap {
-                        print("aquarium id:\(id)")
                         aquariumsID.append(id)
-                        stack.push(id)
-
-                        /*
-                           self.deleteAquariums(with: id) { result in
-                              switch result {
-                              case .success:
-                                  // ..MARK: deleted aquarium
-
-                                  self.removeData(ref: userRef) { result in
-                                      switch result {
-                                      case .success:
-                                          self.deleteAuth { result in
-                                              switch result{
-                                              case .success:
-                                                  completion(.success(true))
-                                              case .failure:
-                                                  completion(.failure(.deleteAccountError))
-                                              }
-                                          }
-                                      case .failure:
-                                          completion(.failure(.deleteAccountError))
-                                      }
-                                  }
-                              case .failure:
-                                  // ..MARK: not deleted aquarium
-                                  completion(.failure(.deleteAquariumError))
-                              }
-                          }
-                         */
-                    }
-                    print(stack.pop())
-                    self.deleteAquariums(with: stack.pop()) { result in
-                        switch result {
-                        case .success:
-                            print("success-deleted \(stack.pop())")
-                            completion(.success(true))
-                        case .failure:
-                            completion(.failure(.deleteAquariumError))
-                        }
+                        
                     }
                 }
             }
         }
+        print(aquariumsID)
+        return aquariumsID
     }
 
     // ..MARK: Delete Aquariums Func
-    func deleteAquariums(with aquariumID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void) {
+    func deleteAquariums(with aquariumsID: [String]) async throws {
         // ..TODO: Delete Aquariums
 
-        var devicesID = [String]()
-        let aquariumsRef = databaseRef.child("aquariums").child(aquariumID)
-        let deviceRef = databaseRef.child("aquariums").child(aquariumID).child("devices").ref
-        let group = DispatchGroup()
+        _ = try await aquariumsID.asyncMap { aquarium in
+            let devices = try await fetchDevices(with: aquarium)
+            try await deleteDevices(with: devices)
+            print("deleted aquarium \(aquarium)")
+        }
+    }
 
-        deviceRef.getData { error, data in
-            if let error = error {
-                print(error.localizedDescription)
+    // MARK: fetch devices
+
+    func fetchDevices(with aquariumID: String) async throws -> [String] {
+        var devicesID = [String]()
+        let ref = databaseRef.child("aquariums").child(aquariumID).ref
+
+        ref.getData { error, data in
+            if let err = error {
+                print(err.localizedDescription)
             } else {
-                print(data)
                 if data.exists() {
                     guard let snap = data.value as? [String: Any] else { return }
                     for (id, _) in snap {
-                        print("device id :\(id)")
                         devicesID.append(id)
-
-                        self.deleteDevices(with: id) { result in
-                            switch result {
-                            case .success:
-                                // ..MARK: deleted device
-                                self.removeData(ref: aquariumsRef) { result in
-                                    switch result {
-                                    case .success:
-                                        completion(.success(true))
-                                    case .failure:
-                                        completion(.failure(.deleteAquariumError))
-                                    }
-                                }
-
-                            case .failure:
-                                // ..MARK: not deleted device
-                                completion(.failure(.deleteDeviceError))
-                            }
-                        }
                     }
-                }else{
-                    print("not exists")
                 }
             }
         }
+        print(devicesID)
+        return devicesID
     }
 
     // ..MARK: Deleted Devices Func
 
-    func deleteDevices(with devicesID: String, completion: @escaping (Result<Any, FirebaseError>) -> Void) {
+    func deleteDevices(with devicesID: [String]) async throws {
         // ..TODO: Delete Devices
 
-        let deviceRef = databaseRef.child("devices").child(devicesID).ref
-
-        removeData(ref: deviceRef) { result in
-            switch result {
-            case .success:
-                completion(.success(true))
-            case .failure:
-                completion(.failure(.deleteDeviceError))
-            }
+        try await devicesID.asyncMap { device in
+            let deviceRef = databaseRef.child("devices").child(device).ref
+            try await deviceRef.removeValue()
+            print("deleted aquarium \(device)")
         }
     }
 
@@ -359,5 +309,17 @@ class FirebaseServiceImpl: FirebaseService {
                 completion(.success(true))
             }
         }
+    }
+}
+
+extension Sequence {
+    func asyncMap<T>(
+        _ transform: (Element) async throws -> T
+    ) async rethrows -> [T] {
+        var values = [T]()
+        for element in self {
+            try await values.append(transform(element))
+        }
+        return values
     }
 }

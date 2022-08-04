@@ -19,6 +19,10 @@ enum FirebaseError: Error {
     case deleteAquariumError
     case deleteAccountError
     case removeValueError
+    case deleteUserError
+    case fetchAquariumsError
+    case fetchDevicesError
+    case networkError
 }
 
 struct Stack {
